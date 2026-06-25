@@ -45,7 +45,7 @@ The main objectives of the project are:
 
 ### **Students**
 
-Students are the primary users of the system. They can submit service requests, view notices, track request status, and receive updates from university offices.
+Students are the primary users of the system. They can submit service requests, Quick communication with offices, view notices, track request status, and receive updates from university offices.
 
 ### **Teachers**
 
@@ -96,22 +96,31 @@ The first version of the Campus Management System will include the following mod
 
 * User login and authentication  
 * Role-based access control
+* Student, Teacher, and Staff profiles
 
 ### **Office Management**
 
 * Office directory  
-* Service request submission  
-* Request tracking
-
+* Department information  
+* Department information
+  
 ### **Notice Management**
 
 * University announcements  
-* Office notices
+* Department notices
+* Important updates and notifications
 
 ### **Complaint Management**
 
-* Reporting campus-related issues  
+* Submit campus-related complaints
 * Complaint status tracking
+
+### **Administration Dashboard**
+
+* Monitor requests and complaints
+* Manage users and departments
+* Generate reports and statistics
+
 
 ## **Conclusion**
 
