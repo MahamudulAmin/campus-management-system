@@ -124,5 +124,5 @@ The first version of the Campus Management System will include the following mod
 
 ## **Conclusion**
 
-The Campus Management System aims to simplify the way students, teachers, and university offices interact with one another. By bringing multiple campus services into a single platform, the system will reduce communication barriers, improve efficiency, and provide a better experience for all users. This project addresses a real-world problem faced by many universities and offers a practical digital solution for modern campus management.
+The Campus Management System aims to simplify the way students, teachers, and university offices interact with one another. By bringing multiple campus services into a single platform, the system will reduce communication barriers, improve efficiency, and provide a better experience for all users. This project addresses a real-world problem faced by many universities and offers a practical digital solution for modern campus management system.
 
