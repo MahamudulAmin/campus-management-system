@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import SummaryCard from "../../components/SummaryCard";
@@ -6,72 +8,100 @@ import RequestTable from "../../components/RequestTable";
 import NoticeBoard from "../../components/NoticeBoard";
 import NotificationPanel from "../../components/NotificationPanel";
 
+import "../../styles/StudentDashboard.css";
+
+
 const StudentDashboard = () => {
+
+  const navigate = useNavigate();
+
+
+  const handleLogout = () => {
+
+    // remove login data if later added
+    localStorage.removeItem("user");
+
+    navigate("/login");
+
+  };
+
+
   return (
-    <div
-      style={{
-        backgroundColor: "#f4f6f9",
-        minHeight: "100vh",
-      }}
-    >
+
+    <div className="dashboard-container">
+
+
       <Navbar />
 
-      <div
-        style={{
-          display: "flex",
-        }}
-      >
-        <Sidebar />
 
-        <div
-          style={{
-            flex: 1,
-            padding: "30px",
-          }}
-        >
-          {/* Welcome Section */}
+      <div className="dashboard-layout">
 
-          <div
-            style={{
-              backgroundColor: "#fff",
-              padding: "25px",
-              borderRadius: "10px",
-              marginBottom: "25px",
-              boxShadow: "0 2px 8px rgba(0,0,0,.1)",
-            }}
-          >
-            <h1>Welcome, Mahamudul Amin 👋</h1>
 
-            <p>
-              Student ID : 221-XXX-XXX
-            </p>
+        <aside className="dashboard-sidebar">
 
-            <p>
-              Department : Computer Science & Engineering
-            </p>
+          <Sidebar />
 
-            <p>
-              Semester : Spring 2026
-            </p>
+        </aside>
+
+
+
+        <main className="dashboard-content">
+
+
+          <div className="dashboard-top">
+
+            <div>
+
+              <h1>
+                Welcome, Mahamudul Amin 👋
+              </h1>
+
+
+              <p>
+                Student ID : 221-XXX-XXX
+              </p>
+
+
+              <p>
+                Department : Computer Science & Engineering
+              </p>
+
+
+              <p>
+                Semester : Spring 2026
+              </p>
+
+            </div>
+
+
+
+            <button
+              className="logout-button"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+
+
           </div>
 
-          {/* Dashboard Cards */}
 
-          <h2>Dashboard Summary</h2>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "20px",
-              flexWrap: "wrap",
-              marginBottom: "35px",
-            }}
-          >
+
+          <h2>
+            Dashboard Summary
+          </h2>
+
+
+          <div className="summary-container">
+
+
             <SummaryCard
               title="Total Requests"
               value={8}
               color="#3498db"
             />
+
 
             <SummaryCard
               title="Pending"
@@ -79,77 +109,96 @@ const StudentDashboard = () => {
               color="#f39c12"
             />
 
+
             <SummaryCard
               title="Approved"
               value={5}
               color="#27ae60"
             />
 
+
             <SummaryCard
               title="Rejected"
               value={1}
               color="#e74c3c"
             />
+
+
           </div>
 
-          {/* University Offices */}
 
-          <h2>University Offices</h2>
 
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "20px",
-              marginBottom: "35px",
-            }}
-          >
+
+
+          <h2>
+            University Offices
+          </h2>
+
+
+          <div className="office-container">
+
+
             <OfficeCard
               officeName="Admission Office"
               description="Admission related services."
             />
+
 
             <OfficeCard
               officeName="Registration Office"
               description="Course registration and records."
             />
 
+
             <OfficeCard
               officeName="CITS"
               description="Technical support and IT services."
             />
+
 
             <OfficeCard
               officeName="Financial Aid Office"
               description="Scholarships and financial assistance."
             />
 
+
             <OfficeCard
               officeName="Accounts Office"
               description="Tuition fee and payment services."
             />
 
+
             <OfficeCard
               officeName="Student Affairs Office"
               description="Student welfare and campus activities."
             />
+
+
           </div>
 
-          {/* Service Requests */}
+
+
 
           <RequestTable />
 
-          {/* Notices */}
 
           <NoticeBoard />
 
-          {/* Notifications */}
 
           <NotificationPanel />
-        </div>
+
+
+
+        </main>
+
+
       </div>
+
+
     </div>
+
   );
 };
+
 
 export default StudentDashboard;

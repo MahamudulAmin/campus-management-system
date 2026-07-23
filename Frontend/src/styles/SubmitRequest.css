@@ -1,0 +1,187 @@
+.page-container{
+    min-height:100vh;
+    background:#f4f6f9;
+}
+
+
+.layout{
+    display:flex;
+}
+
+
+.content{
+    flex:1;
+    padding:30px;
+}
+
+
+.request-card{
+
+    background:white;
+
+    max-width:650px;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+
+}
+
+
+
+.request-card form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+
+
+.request-card label{
+
+    font-weight:600;
+
+    margin-top:10px;
+
+}
+
+
+
+.request-card select,
+.request-card textarea{
+
+    width:100%;
+
+    padding:12px;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+}
+
+
+
+.request-card textarea{
+
+    min-height:140px;
+
+    resize:vertical;
+
+}
+
+
+
+.request-card button{
+
+    margin-top:15px;
+
+    padding:12px;
+
+    border:none;
+
+    background:#2563eb;
+
+    color:white;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+}
+
+
+
+.request-card button:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+
+.success-box{
+
+    background:#d1fae5;
+
+    color:#065f46;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+
+
+/* Tablet */
+
+@media(max-width:900px){
+
+
+    .layout{
+
+        flex-direction:column;
+
+    }
+
+
+    .content{
+
+        padding:20px;
+
+    }
+
+
+}
+
+
+
+/* Mobile */
+
+@media(max-width:600px){
+
+
+    .content{
+
+        padding:15px;
+
+    }
+
+
+    .request-card{
+
+        padding:20px;
+
+    }
+
+
+    h1{
+
+        font-size:24px;
+
+    }
+
+
+    .request-card button{
+
+        width:100%;
+
+    }
+
+
+}

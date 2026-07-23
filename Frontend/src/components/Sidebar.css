@@ -1,0 +1,32 @@
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: #1e293b;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.sidebar h3 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 22px;
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #334155;
+  color: white;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sidebar button:hover {
+  background: #2563eb;
+}
