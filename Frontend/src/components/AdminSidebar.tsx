@@ -1,88 +1,152 @@
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const AdminSidebar = () => {
   const navigate = useNavigate();
-  const [activeItem, setActiveItem] = useState("Dashboard");
+  const location = useLocation();
 
   const menuItems = [
-    { label: "Dashboard", path: "/admin", icon: "📊" },
-    { label: "Total Users", path: "/admin/users", icon: "👥" },
-    { label: "Offices", path: "/admin/offices", icon: "🏛️" },
-    { label: "Reports", path: "/admin/reports", icon: "📈" },
-    { label: "Recent Activities", path: "/admin/activities", icon: "📋" },
-    { label: "Settings", path: "/admin/settings", icon: "⚙️" },
-    { label: "Back to Student", path: "/", icon: "🎓" },
-    { label: "Logout", path: "#logout", icon: "🚪" },
+    {
+      title: "Dashboard",
+      path: "/admin",
+      icon: "📊",
+    },
+    {
+      title: "Users",
+      path: "/admin/users",
+      icon: "👥",
+    },
+    {
+      title: "Offices",
+      path: "/admin/offices",
+      icon: "🏢",
+    },
+    {
+      title: "Activities",
+      path: "/admin/activities",
+      icon: "📋",
+    },
+    {
+      title: "Reports",
+      path: "/admin/reports",
+      icon: "📈",
+    },
   ];
 
-  const handleClick = (item: { label: string; path: string; icon: string }) => {
-    if (item.label === "Logout") {
-      alert("Logged out successfully!");
-      return;
-    }
-    setActiveItem(item.label);
-    navigate(item.path);
+  const logout = () => {
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
   return (
     <div
       style={{
-        width: "250px",
+        width: "260px",
         minHeight: "100vh",
-        backgroundColor: "#0F172A",
-        color: "white",
-        padding: "20px",
-        boxSizing: "border-box",
+        background: "#0F172A",
+        display: "flex",
+        flexDirection: "column",
+        color: "#fff",
+        boxShadow: "3px 0 10px rgba(0,0,0,.15)",
       }}
     >
-      <h2
+      {/* Logo */}
+
+      <div
         style={{
-          textAlign: "center",
-          marginBottom: "40px",
-          borderBottom: "1px solid #64748b",
-          paddingBottom: "15px",
-          fontSize: "18px",
+          padding: "25px 20px",
+          borderBottom: "1px solid #334155",
         }}
       >
-        Admin Panel
-      </h2>
+        <h2
+          style={{
+            margin: 0,
+            textAlign: "center",
+          }}
+        >
+          🎓 CMS Admin
+        </h2>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-        {menuItems.map((item) => (
-          <div
-            key={item.label}
-            onClick={() => handleClick(item)}
-            style={{
-              padding: "12px 15px",
-              cursor: "pointer",
-              borderRadius: "6px",
-              backgroundColor:
-                activeItem === item.label ? "rgba(99, 102, 241, 0.3)" : "transparent",
-              borderLeft:
-                activeItem === item.label ? "3px solid #6366f1" : "3px solid transparent",
-              transition: "all 0.3s ease",
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              color: activeItem === item.label ? "#c7d2fe" : "#cbd5e1",
-              fontWeight: activeItem === item.label ? "600" : "400",
-            }}
-            onMouseEnter={(e) => {
-              if (activeItem !== item.label) {
-                e.currentTarget.style.backgroundColor = "rgba(51, 65, 85, 0.5)";
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (activeItem !== item.label) {
-                e.currentTarget.style.backgroundColor = "transparent";
-              }
-            }}
-          >
-            <span style={{ fontSize: "18px" }}>{item.icon}</span>
-            <span>{item.label}</span>
-          </div>
-        ))}
+        <p
+          style={{
+            marginTop: "8px",
+            textAlign: "center",
+            color: "#94A3B8",
+            fontSize: "13px",
+          }}
+        >
+          Campus Management System
+        </p>
+      </div>
+
+      {/* Menu */}
+
+      <div
+        style={{
+          flex: 1,
+          paddingTop: "20px",
+        }}
+      >
+        {menuItems.map((item) => {
+          const active = location.pathname === item.path;
+
+          return (
+            <div
+              key={item.title}
+              onClick={() => navigate(item.path)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "15px",
+                margin: "8px 15px",
+                padding: "14px 18px",
+                cursor: "pointer",
+                borderRadius: "10px",
+                background: active ? "#2563EB" : "transparent",
+                color: active ? "#fff" : "#CBD5E1",
+                transition: ".3s",
+                fontWeight: active ? "bold" : "normal",
+              }}
+              onMouseEnter={(e) => {
+                if (!active)
+                  e.currentTarget.style.background = "#1E293B";
+              }}
+              onMouseLeave={(e) => {
+                if (!active)
+                  e.currentTarget.style.background = "transparent";
+              }}
+            >
+              <span style={{ fontSize: "22px" }}>{item.icon}</span>
+
+              <span>{item.title}</span>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Logout */}
+
+      <div
+        style={{
+          padding: "20px",
+          borderTop: "1px solid #334155",
+        }}
+      >
+        <button
+          onClick={logout}
+          style={{
+            width: "100%",
+            padding: "14px",
+            background: "#DC2626",
+            color: "#fff",
+            border: "none",
+            borderRadius: "8px",
+            cursor: "pointer",
+            fontSize: "15px",
+            fontWeight: "bold",
+          }}
+        >
+          🚪 Logout
+        </button>
       </div>
     </div>
   );

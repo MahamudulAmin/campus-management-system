@@ -1,0 +1,62 @@
+[
+    {
+        "id": 2,
+        "name": "Registration Office",
+        "head": "Ms. Ayesha Khan",
+        "email": "registration@university.edu",
+        "phone": "+92-42-1234568",
+        "status": "Active",
+        "staff": 12,
+        "description": "Manages student registration and academic records.",
+        "services": [
+            "Course Registration",
+            "Transcript Request",
+            "Student Records"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "CITS (Center for IT Services)",
+        "head": "Eng. Hassan Ahmed",
+        "email": "cits@university.edu",
+        "phone": "+92-42-1234569",
+        "status": "Active",
+        "staff": 15,
+        "description": "Provides IT support and technology services.",
+        "services": [
+            "Technical Support",
+            "Email Account",
+            "Network Issues"
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Financial Aid Office",
+        "head": "Mr. Ibrahim Hassan",
+        "email": "finaid@university.edu",
+        "phone": "+92-42-1234570",
+        "status": "Active",
+        "staff": 6,
+        "description": "Manages student financial assistance and aid programs.",
+        "services": [
+            "Scholarship Application",
+            "Financial Assistance",
+            "Aid Information"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Student Affairs",
+        "head": "Dr. Fatima Zahra",
+        "email": "studentaffairs@university.edu",
+        "phone": "+92-42-1234571",
+        "status": "Active",
+        "staff": 10,
+        "description": "Handles student activities, complaints, and support services.",
+        "services": [
+            "Student Complaints",
+            "Campus Activities",
+            "Student Support"
+        ]
+    }
+]

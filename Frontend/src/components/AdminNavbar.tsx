@@ -1,53 +1,127 @@
+import { useNavigate } from "react-router-dom";
+
 const AdminNavbar = () => {
+  const navigate = useNavigate();
+
+  const today = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
   return (
-    <div
+    <header
       style={{
-        backgroundColor: "#1E293B",
-        color: "white",
-        padding: "0 30px",
-        height: "70px",
+        width: "100%",
+        height: "75px",
+        background: "#ffffff",
+        borderBottom: "1px solid #e5e7eb",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        padding: "0 30px",
+        boxSizing: "border-box",
       }}
     >
+      {/* Left */}
       <div>
-        <h1 style={{ margin: 0, fontSize: "24px", fontWeight: "bold" }}>
-          🏫 Campus Management System - Admin
-        </h1>
-      </div>
-      <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-        <button
+        <h2
           style={{
-            backgroundColor: "rgba(255,255,255,0.2)",
-            border: "1px solid rgba(255,255,255,0.3)",
-            color: "white",
-            padding: "8px 16px",
-            borderRadius: "6px",
-            cursor: "pointer",
+            margin: 0,
+            color: "#1e293b",
+            fontSize: "24px",
+          }}
+        >
+          Admin Dashboard
+        </h2>
+
+        <p
+          style={{
+            margin: "5px 0 0",
+            color: "#64748b",
             fontSize: "14px",
           }}
         >
-          🔔 Alerts
-        </button>
+          {today}
+        </p>
+      </div>
+
+      {/* Right */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "20px",
+        }}
+      >
         <div
           style={{
-            width: "40px",
-            height: "40px",
-            borderRadius: "50%",
-            backgroundColor: "rgba(255,255,255,0.3)",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
-            fontSize: "18px",
-            cursor: "pointer",
+            gap: "10px",
           }}
         >
-          👤
+          <div
+            style={{
+              width: "42px",
+              height: "42px",
+              borderRadius: "50%",
+              background: "#2563EB",
+              color: "#fff",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontWeight: "bold",
+              fontSize: "18px",
+            }}
+          >
+            A
+          </div>
+
+          <div>
+            <div
+              style={{
+                fontWeight: "bold",
+                color: "#1e293b",
+              }}
+            >
+              Administrator
+            </div>
+
+            <div
+              style={{
+                color: "#64748b",
+                fontSize: "13px",
+              }}
+            >
+              System Admin
+            </div>
+          </div>
         </div>
+
+        <button
+          onClick={handleLogout}
+          style={{
+            background: "#dc2626",
+            color: "#fff",
+            border: "none",
+            padding: "10px 18px",
+            borderRadius: "8px",
+            cursor: "pointer",
+            fontWeight: "bold",
+            transition: "0.3s",
+          }}
+        >
+          Logout
+        </button>
       </div>
-    </div>
+    </header>
   );
 };
 

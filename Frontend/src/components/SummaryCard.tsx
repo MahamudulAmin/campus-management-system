@@ -8,21 +8,37 @@ const SummaryCard = ({ title, value, color }: SummaryCardProps) => {
   return (
     <div
       style={{
-        backgroundColor: color,
+        background: color,
         color: "#fff",
+        borderRadius: "12px",
         padding: "20px",
-        borderRadius: "10px",
-        width: "220px",
-        textAlign: "center",
-        boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+        minHeight: "120px",
+        width: "100%",
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        boxShadow: "0 6px 15px rgba(0,0,0,0.12)",
+        transition: "0.3s",
       }}
     >
-      <h3 style={{ marginBottom: "10px" }}>{title}</h3>
+      <h3
+        style={{
+          margin: 0,
+          fontSize: "16px",
+          fontWeight: 500,
+          opacity: 0.9,
+        }}
+      >
+        {title}
+      </h3>
 
       <h1
         style={{
-          fontSize: "36px",
-          margin: 0,
+          marginTop: "15px",
+          marginBottom: 0,
+          fontSize: "38px",
+          fontWeight: "bold",
         }}
       >
         {value}
