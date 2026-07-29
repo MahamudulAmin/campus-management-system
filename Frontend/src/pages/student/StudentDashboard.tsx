@@ -10,7 +10,6 @@ import RequestTable from "../../components/RequestTable";
 import NoticeBoard from "../../components/NoticeBoard";
 import NotificationPanel from "../../components/NotificationPanel";
 
-import { getRequests } from "../../utils/requestStorage";
 import "../../styles/StudentDashboard.css";
 
 const StudentDashboard = () => {
