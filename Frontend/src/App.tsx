@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 // Login
-import Login from "./pages/Login";
+import Login from "./pages/login";
 
 // ================= Student Pages =================
 import StudentDashboard from "./pages/student/StudentDashboard";
