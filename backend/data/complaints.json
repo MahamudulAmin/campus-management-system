@@ -34,5 +34,11 @@
         "title": "Staff Behavior",
         "description": "trfuj y",
         "status": "Pending"
+    },
+    {
+        "student_id": "1234567",
+        "title": "Academic Issue",
+        "description": "new one 1",
+        "status": "Pending"
     }
 ]

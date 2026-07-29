@@ -14,31 +14,10 @@
         "department": "Registrar Office"
     },
     {
-        "id": 4,
-        "name": "4w",
-        "email": "re",
-        "role": "Department Head",
-        "department": "Finance Office"
-    },
-    {
-        "id": 4,
-        "name": "sumaiya",
-        "email": "ws",
+        "id": 3,
+        "name": "favin",
+        "email": "favin",
         "role": "SOD",
         "department": "Admission Office"
-    },
-    {
-        "id": 5,
-        "name": "y",
-        "email": "y",
-        "role": "Office Staff",
-        "department": "Finance Office"
-    },
-    {
-        "id": 6,
-        "name": "uiuy i",
-        "email": "yuik y",
-        "role": "Office Staff",
-        "department": "Finance Office"
     }
 ]
