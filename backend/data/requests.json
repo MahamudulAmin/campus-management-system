@@ -1,0 +1,18 @@
+[
+    {
+        "id": "REQ-EQ0PA5",
+        "office": "CITS",
+        "requestType": "Transcript",
+        "description": "gv",
+        "date": "7/29/2026",
+        "status": "Pending"
+    },
+    {
+        "id": "REQ-0002",
+        "office": "Accounts Office",
+        "requestType": "Certificate",
+        "description": "piii",
+        "date": "7/29/2026",
+        "status": "Pending"
+    }
+]

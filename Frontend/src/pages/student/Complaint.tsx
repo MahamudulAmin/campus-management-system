@@ -28,16 +28,59 @@ const Complaint = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (formData.complaintType && formData.description) {
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setFormData({ complaintType: "", description: "" });
-      }, 3000);
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (formData.complaintType && formData.description) {
+
+    const complaint = {
+      student_id: "1234567",
+      title: formData.complaintType,
+      description: formData.description,
+      status: "Pending"
+    };
+
+
+    try {
+
+      const response = await fetch(
+        "http://127.0.0.1:8000/complaints/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(complaint),
+        }
+      );
+
+
+      if (response.ok) {
+        setSubmitted(true);
+
+        setTimeout(() => {
+          setSubmitted(false);
+
+          setFormData({
+            complaintType: "",
+            description: ""
+          });
+
+        }, 3000);
+      }
+
+
+    } catch (error) {
+
+      console.log(
+        "Complaint submit error:",
+        error
+      );
+
     }
-  };
+
+  }
+};
 
   return (
     <div style={{ backgroundColor: "#f4f6f9", minHeight: "100vh" }}>

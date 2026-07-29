@@ -45,18 +45,19 @@
         ]
     },
     {
-        "id": 5,
-        "name": "Student Affairs",
-        "head": "Dr. Fatima Zahra",
-        "email": "studentaffairs@university.edu",
-        "phone": "+92-42-1234571",
+        "name": "4",
+        "email": "4",
+        "phone": "44",
         "status": "Active",
-        "staff": 10,
-        "description": "Handles student activities, complaints, and support services.",
-        "services": [
-            "Student Complaints",
-            "Campus Activities",
-            "Student Support"
-        ]
+        "description": "4",
+        "id": 6
+    },
+    {
+        "name": "uy",
+        "email": "tut",
+        "phone": "tyuj",
+        "status": "Active",
+        "description": "tuj",
+        "id": 7
     }
 ]

@@ -1,0 +1,38 @@
+[
+    {
+        "student_id": "1234567",
+        "title": "Test Complaint",
+        "description": "Testing complaint system",
+        "status": "Pending"
+    },
+    {
+        "student_id": "1234567",
+        "title": "Facilities",
+        "description": "hjgk",
+        "status": "Pending"
+    },
+    {
+        "student_id": "1234567",
+        "title": "Harassment",
+        "description": "gyjhhg",
+        "status": "Pending"
+    },
+    {
+        "student_id": "1234567",
+        "title": "Other",
+        "description": "547",
+        "status": "Pending"
+    },
+    {
+        "student_id": "1234567",
+        "title": "Staff Behavior",
+        "description": "nm",
+        "status": "Pending"
+    },
+    {
+        "student_id": "1234567",
+        "title": "Staff Behavior",
+        "description": "trfuj y",
+        "status": "Pending"
+    }
+]

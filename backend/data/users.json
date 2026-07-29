@@ -1,12 +1,5 @@
 [
     {
-        "id": 1,
-        "name": "favin",
-        "email": "qw",
-        "role": "Department Head",
-        "department": "Finance Office"
-    },
-    {
         "id": 2,
         "name": "edfd",
         "email": "ed",
@@ -25,6 +18,27 @@
         "name": "4w",
         "email": "re",
         "role": "Department Head",
+        "department": "Finance Office"
+    },
+    {
+        "id": 4,
+        "name": "sumaiya",
+        "email": "ws",
+        "role": "SOD",
+        "department": "Admission Office"
+    },
+    {
+        "id": 5,
+        "name": "y",
+        "email": "y",
+        "role": "Office Staff",
+        "department": "Finance Office"
+    },
+    {
+        "id": 6,
+        "name": "uiuy i",
+        "email": "yuik y",
+        "role": "Office Staff",
         "department": "Finance Office"
     }
 ]
