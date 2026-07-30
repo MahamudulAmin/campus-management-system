@@ -45,8 +45,8 @@ const Complaint = () => {
     try {
 
       const response = await fetch(
-        // "http://127.0.0.1:8000/complaints/",
-         `${API_URL}/complaints/`,
+        "http://127.0.0.1:8000/complaints/",
+        //  `${API_URL}/complaints/`,
         {
           method: "POST",
           headers: {

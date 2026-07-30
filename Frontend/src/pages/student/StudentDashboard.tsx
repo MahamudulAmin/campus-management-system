@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import API_URL from "../../config";
+// import API_URL from "../../config";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import SummaryCard from "../../components/SummaryCard";
@@ -21,12 +21,12 @@ const StudentDashboard = () => {
   // Fetch requests from FastAPI
   const refreshDashboard = async () => {
     try {
-      // const response = await fetch(
-      //   "http://127.0.0.1:8000/requests/"
-      // );
       const response = await fetch(
-  `${API_URL}/requests/`
-);
+        "http://127.0.0.1:8000/requests/"
+      );
+//       const response = await fetch(
+//   `${API_URL}/requests/`
+// );
 
       const data = await response.json();
 

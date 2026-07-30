@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import AdminNavbar from "../../components/AdminNavbar";
 import AdminSidebar from "../../components/AdminSidebar";
 import SummaryCard from "../../components/SummaryCard";
-import API_URL from "../../config";
+// import API_URL from "../../config";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -24,24 +24,24 @@ useEffect(() => {
 
     try {
 
-      // const usersResponse = await fetch(
-      //   "http://127.0.0.1:8000/users/"
-      // );
-const usersResponse = await fetch(
-  `${API_URL}/users/`
-);
-      // const officesResponse = await fetch(
-      //   "http://127.0.0.1:8000/offices/"
-      // );
-const officesResponse = await fetch(
-  `${API_URL}/offices/`
-);
-const complaintsResponse = await fetch(
-  `${API_URL}/complaints/`
-);
-      // const complaintsResponse = await fetch(
-      //   "http://127.0.0.1:8000/complaints/"
-      // );
+      const usersResponse = await fetch(
+        "http://127.0.0.1:8000/users/"
+      );
+// const usersResponse = await fetch(
+//   `${API_URL}/users/`
+// );
+      const officesResponse = await fetch(
+        "http://127.0.0.1:8000/offices/"
+      );
+// const officesResponse = await fetch(
+//   `${API_URL}/offices/`
+// );
+// const complaintsResponse = await fetch(
+//   `${API_URL}/complaints/`
+// );
+      const complaintsResponse = await fetch(
+        "http://127.0.0.1:8000/complaints/"
+      );
 
 
       const users = await usersResponse.json();

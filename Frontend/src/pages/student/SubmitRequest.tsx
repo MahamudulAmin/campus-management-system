@@ -2,7 +2,7 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { useState } from "react";
 import "../../styles/SubmitRequest.css";
-import API_URL from "../../config";
+// import API_URL from "../../config";
 
 const SubmitRequest = () => {
   const [formData, setFormData] = useState({
@@ -70,8 +70,8 @@ const SubmitRequest = () => {
     };
 
     try {
-      // const response = await fetch("http://127.0.0.1:8000/requests/", {
-      const response = await fetch(`${API_URL}/requests/`, {
+      const response = await fetch("http://127.0.0.1:8000/requests/", {
+      // const response = await fetch(`${API_URL}/requests/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
