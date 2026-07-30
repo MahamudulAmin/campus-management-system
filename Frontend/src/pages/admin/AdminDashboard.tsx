@@ -1,20 +1,99 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import AdminNavbar from "../../components/AdminNavbar";
 import AdminSidebar from "../../components/AdminSidebar";
 import SummaryCard from "../../components/SummaryCard";
+import API_URL from "../../config";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
 
-  const [stats] = useState({
-    users: 25,
-    offices: 6,
-    requests: 48,
-    completed: 39,
-    pending: 9,
-  });
+  const [stats, setStats] = useState({
+  users: 0,
+  offices: 0,
+  requests: 0,
+  complaints: 0,
+  completed: 0,
+  pending: 0,
+});
+
+
+useEffect(() => {
+
+  const loadDashboard = async () => {
+
+    try {
+
+      // const usersResponse = await fetch(
+      //   "http://127.0.0.1:8000/users/"
+      // );
+const usersResponse = await fetch(
+  `${API_URL}/users/`
+);
+      // const officesResponse = await fetch(
+      //   "http://127.0.0.1:8000/offices/"
+      // );
+const officesResponse = await fetch(
+  `${API_URL}/offices/`
+);
+const complaintsResponse = await fetch(
+  `${API_URL}/complaints/`
+);
+      // const complaintsResponse = await fetch(
+      //   "http://127.0.0.1:8000/complaints/"
+      // );
+
+
+      const users = await usersResponse.json();
+      const offices = await officesResponse.json();
+      const complaints = await complaintsResponse.json();
+
+
+
+      const completed = complaints.filter(
+        (item:any)=>item.status==="Completed"
+      ).length;
+
+
+      const pending = complaints.filter(
+        (item:any)=>item.status==="Pending"
+      ).length;
+
+
+
+      setStats({
+
+  users: users.length,
+
+  offices: offices.length,
+
+  requests: 0,
+
+  complaints: complaints.length,
+
+  completed: completed,
+
+  pending: pending,
+
+});
+
+
+    } catch(error){
+
+      console.log(
+        "Dashboard loading error:",
+        error
+      );
+
+    }
+
+  };
+
+
+  loadDashboard();
+
+
+},[]);
 
   const activities = [
     {
@@ -167,7 +246,7 @@ const AdminDashboard = () => {
             />
 
             <SummaryCard
-              title="Pending"
+              title="Complaints"
               value={stats.pending}
               color="#EF4444"
             />

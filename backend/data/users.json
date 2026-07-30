@@ -1,15 +1,8 @@
 [
     {
-        "id": 1,
-        "name": "favin",
-        "email": "qw",
-        "role": "Department Head",
-        "department": "Finance Office"
-    },
-    {
         "id": 2,
         "name": "edfd",
-        "email": "ed",
+        "email": "edjkuiy",
         "role": "Officer",
         "department": "Registrar Office"
     },
@@ -21,10 +14,10 @@
         "department": "Registrar Office"
     },
     {
-        "id": 4,
-        "name": "4w",
-        "email": "re",
-        "role": "Department Head",
-        "department": "Finance Office"
+        "id": 3,
+        "name": "favin",
+        "email": "favin",
+        "role": "SOD",
+        "department": "Admission Office"
     }
 ]

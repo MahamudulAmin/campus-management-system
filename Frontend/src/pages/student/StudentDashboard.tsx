@@ -1,6 +1,7 @@
-import React, { useMemo, useEffect } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import API_URL from "../../config";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import SummaryCard from "../../components/SummaryCard";
@@ -9,42 +10,92 @@ import RequestTable from "../../components/RequestTable";
 import NoticeBoard from "../../components/NoticeBoard";
 import NotificationPanel from "../../components/NotificationPanel";
 
-import { getRequests } from "../../utils/requestStorage";
 import "../../styles/StudentDashboard.css";
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
 
-  // Always scroll to top when this page loads
+  const [requests, setRequests] = useState<any[]>([]);
+
+
+  // Fetch requests from FastAPI
+  const refreshDashboard = async () => {
+    try {
+      // const response = await fetch(
+      //   "http://127.0.0.1:8000/requests/"
+      // );
+      const response = await fetch(
+  `${API_URL}/requests/`
+);
+
+      const data = await response.json();
+
+      setRequests(data);
+
+    } catch (error) {
+      console.error("Failed to load requests", error);
+    }
+  };
+
+
+  // Load data and listen for new requests
   useEffect(() => {
+
+    // Always scroll to top when this page loads
     window.scrollTo(0, 0);
+
+    refreshDashboard();
+
+
+    window.addEventListener(
+      "requestUpdated",
+      refreshDashboard
+    );
+
+
+    return () => {
+      window.removeEventListener(
+        "requestUpdated",
+        refreshDashboard
+      );
+    };
+
+
   }, []);
 
-  // Fetch requests
-  const requests = getRequests() || [];
 
   // Calculate dashboard metrics
   const metrics = useMemo(() => {
+
     const total = requests.length;
+
     let pending = 0;
     let approved = 0;
     let rejected = 0;
 
+
     requests.forEach((req) => {
+
       switch (req.status) {
+
         case "Pending":
           pending++;
           break;
+
         case "Approved":
           approved++;
           break;
+
         case "Rejected":
           rejected++;
           break;
+
         default:
           break;
       }
+
     });
+
 
     return {
       total,
@@ -52,15 +103,32 @@ const StudentDashboard = () => {
       approved,
       rejected,
     };
+
   }, [requests]);
 
-  const summaryCardsData = [
-    { title: "Total Requests", value: metrics.total, color: "#2563eb" },
-    { title: "Pending", value: metrics.pending, color: "#f59e0b" },
-    { title: "Approved", value: metrics.approved, color: "#10b981" },
-    { title: "Rejected", value: metrics.rejected, color: "#ef4444" },
-  ];
 
+  const summaryCardsData = [
+    {
+      title: "Total Requests",
+      value: metrics.total,
+      color: "#2563eb",
+    },
+    {
+      title: "Pending",
+      value: metrics.pending,
+      color: "#f59e0b",
+    },
+    {
+      title: "Approved",
+      value: metrics.approved,
+      color: "#10b981",
+    },
+    {
+      title: "Rejected",
+      value: metrics.rejected,
+      color: "#ef4444",
+    },
+  ];
   const officesData = [
     {
       officeName: "Admission Office",
