@@ -1,6 +1,7 @@
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { useState } from "react";
+import API_URL from "../../config";
 
 const Complaint = () => {
   const [formData, setFormData] = useState({
@@ -44,7 +45,8 @@ const Complaint = () => {
     try {
 
       const response = await fetch(
-        "http://127.0.0.1:8000/complaints/",
+        // "http://127.0.0.1:8000/complaints/",
+         `${API_URL}/complaints/`,
         {
           method: "POST",
           headers: {

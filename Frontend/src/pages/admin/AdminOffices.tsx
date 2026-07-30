@@ -1,7 +1,7 @@
 import AdminNavbar from "../../components/AdminNavbar";
 import AdminSidebar from "../../components/AdminSidebar";
 import { useEffect, useState } from "react";
-
+import API_URL from "../../config"; 
 
 interface Office {
 
@@ -62,10 +62,12 @@ const fetchOffices=async()=>{
 
 try{
 
-const res=await fetch(
-"http://localhost:8000/offices"
+// const res=await fetch(
+// "http://localhost:8000/offices"
+// );
+const res = await fetch(
+  `${API_URL}/offices`
 );
-
 
 const data=await res.json();
 
@@ -109,10 +111,12 @@ if(editId!==null){
 
 // UPDATE
 
+// await fetch(
+// `http://localhost:8000/offices/${editId}`,
+// {
 await fetch(
-`http://localhost:8000/offices/${editId}`,
-{
-
+  `${API_URL}/offices/${editId}`,
+  {
 method:"PUT",
 
 headers:{
@@ -133,9 +137,12 @@ else{
 
 // ADD
 
+// await fetch(
+// "http://localhost:8000/offices",
+// {
 await fetch(
-"http://localhost:8000/offices",
-{
+  `${API_URL}/offices`,
+  {
 
 method:"POST",
 
@@ -202,9 +209,12 @@ return;
 
 
 
+// await fetch(
+// `http://localhost:8000/offices/${id}`,
+// {
 await fetch(
-`http://localhost:8000/offices/${id}`,
-{
+  `${API_URL}/offices/${id}`,
+  {
 
 method:"DELETE"
 
