@@ -1,401 +1,143 @@
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-import json
 import os
-
-
-app = FastAPI(
-    title="Campus Management System API"
-)
-
-
-# ==========================
-# CORS CONFIGURATION
-# ==========================
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-
-# ==========================
-# DATA FILES
-# ==========================
-
-DATA_FOLDER = "data"
-
-USER_FILE = "data/users.json"
-OFFICE_FILE = "data/offices.json"
-
-
-# Create data folder
-
-if not os.path.exists(DATA_FOLDER):
-    os.makedirs(DATA_FOLDER)
-
-
-
-# Create JSON files
-
-for file in [USER_FILE, OFFICE_FILE]:
-
-    if not os.path.exists(file):
-
-        with open(file, "w") as f:
-            json.dump([], f)
-
-
-
-# ==========================
-# JSON FUNCTIONS
-# ==========================
-
-def read_json(file):
-
-    with open(file, "r") as f:
-        return json.load(f)
-
-
-
-def save_json(file, data):
-
-    with open(file, "w") as f:
-        json.dump(data, f, indent=4)
-
-
-
-# ==========================
-# HOME API
-# ==========================
-
-@app.get("/")
-def home():
-
-    return {
-        "message":
-        "Campus Management System Backend Running Successfully!"
-    }
-
-
-
-# =================================================
-# USER MANAGEMENT API
-# =================================================
-
-
-@app.get("/users")
-def get_users():
-
-    return read_json(USER_FILE)
-
-
-
-@app.post("/users")
-def create_user(user: dict):
-
-    users = read_json(USER_FILE)
-
-
-    new_user = {
-
-        "id": len(users)+1,
-
-        "name": user.get("name"),
-
-        "email": user.get("email"),
-
-        "role": user.get("role"),
-
-        "department": user.get("department","")
-
-    }
-
-
-    users.append(new_user)
-
-    save_json(USER_FILE, users)
-
-
-    return {
-
-        "message":"User Added Successfully",
-
-        "data":new_user
-    }
-
-
-
-
-@app.put("/users/{user_id}")
-def update_user(user_id:int, updated_user:dict):
-
-    users = read_json(USER_FILE)
-
-
-    for user in users:
-
-
-        if user["id"] == user_id:
-
-
-            user.update(updated_user)
-
-
-            save_json(USER_FILE,users)
-
-
-            return {
-
-                "message":
-                "User Updated Successfully",
-
-                "data":user
-            }
-
-
-    raise HTTPException(
-        status_code=404,
-        detail="User not found"
-    )
-
-
-
-
-@app.delete("/users/{user_id}")
-def delete_user(user_id:int):
-
-    users = read_json(USER_FILE)
-
-
-    updated_users = [
-
-        user for user in users
-
-        if user["id"] != user_id
-    ]
-
-
-    if len(users)==len(updated_users):
-
-        raise HTTPException(
-            status_code=404,
-            detail="User not found"
-        )
-
-
-    save_json(USER_FILE,updated_users)
-
-
-    return {
-
-        "message":
-        "User Deleted Successfully"
-    }
-
-
-
-
-# =================================================
-# OFFICE MANAGEMENT API
-# =================================================
-
-
-@app.get("/offices")
-def get_offices():
-
-    offices = read_json(OFFICE_FILE)
-
-    users = read_json(USER_FILE)
-
-
-
-    for office in offices:
-
-
-        # Count staff under office department
-
-        staff = [
-
-            u for u in users
-
-            if u.get("department")
-            == office.get("name")
-        ]
-
-
-        office["staff_count"] = len(staff)
-
-
-
-        # Find department head
-
-        head = next(
-
-            (
-                u["name"]
-
-                for u in staff
-
-                if u.get("role")
-                =="Head"
-
-            ),
-
-            "Not Assigned"
-
-        )
-
-
-        office["head"] = head
-
-
-
-    return offices
-
-
-
-
-@app.post("/offices")
-def create_office(office:dict):
-
-
-    offices = read_json(OFFICE_FILE)
-
-
-    new_office = {
-
-
-        "id":len(offices)+1,
-
-
-        "name":
-        office.get("name"),
-
-
-        "description":
-        office.get("description",""),
-
-
-        "location":
-        office.get("location","")
-
-
-    }
-
-
-    offices.append(new_office)
-
-
-    save_json(
-        OFFICE_FILE,
-        offices
-    )
-
-
-    return {
-
-        "message":
-        "Office Added Successfully",
-
-        "data":
-        new_office
-    }
-
-
-
-
-@app.put("/offices/{office_id}")
-def update_office(
-    office_id:int,
-    updated_office:dict
-):
-
-
-    offices = read_json(OFFICE_FILE)
-
-
-
-    for office in offices:
-
-
-        if office["id"] == office_id:
-
-
-            office.update(updated_office)
-
-
-            save_json(
-                OFFICE_FILE,
-                offices
-            )
-
-
-            return {
-
-                "message":
-                "Office Updated Successfully",
-
-                "data":
-                office
-            }
-
-
-
-    raise HTTPException(
-
-        status_code=404,
-
-        detail="Office not found"
-
-    )
-
-
-
-
-
-@app.delete("/offices/{office_id}")
-def delete_office(office_id:int):
-
-
-    offices = read_json(OFFICE_FILE)
-
-
-    updated = [
-
-        o for o in offices
-
-        if o["id"] != office_id
-
-    ]
-
-
-
-    if len(offices)==len(updated):
-
-        raise HTTPException(
-
-            status_code=404,
-
-            detail="Office not found"
-
-        )
-
-
-
-    save_json(
-        OFFICE_FILE,
-        updated
-    )
-
-
-
-    return {
-
-        "message":
-        "Office Deleted Successfully"
-
-    }
+import datetime
+from functools import wraps
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from pymongo import MongoClient
+import jwt
+
+app = Flask(__name__)
+CORS(app)  # Enable Cross-Origin requests from React
+
+app.config['SECRET_KEY'] = 'smart_campus_secret_key_123'
+
+# MongoDB Connection (Local or Atlas)
+client = MongoClient("mongodb://localhost:27017/")
+db = client['smart_campus_db']
+
+# Collections
+users_col = db['teachers']
+messages_col = db['office_messages']
+requests_col = db['admin_requests']
+updates_col = db['campus_updates']
+
+# Token Decorator for Protected Routes
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get('Authorization')
+        if not token:
+            return jsonify({'message': 'Token is missing!'}), 401
+        try:
+            token = token.split(" ")[1]  # Remove "Bearer " prefix
+            data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
+            current_user = users_col.find_one({'email': data['email']})
+        except Exception:
+            return jsonify({'message': 'Token is invalid or expired!'}), 401
+        return f(current_user, *args, **kwargs)
+    return decorated
+
+# Initial Seed: Create default teacher if none exists
+@app.before_request
+def seed_default_teacher():
+    #users_col.drop()
+    if users_col.count_documents({}) == 0:
+
+     users_col.insert_many([{
+            "user_id": "123",
+                "name": "Md. Ashraful Amin",
+                "password": "pass123",
+                "department": "Computer Science & Engineering"
+        },
+        {
+            "user_id": "456",
+                "name": "Md. Fahad Monir",
+                "password": "pass456",
+                "department": "Computer Science & Engineering"
+
+        },
+        {"user_id": "789",
+                "name": "Md. Asif Mahmood",
+                "password": "pass789",
+                "department":  "Computer Science & Engineering" }
+
+   ])
+
+# --- AUTH ROUTES ---
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    user_id = data.get('user_id')  # Updated from email
+    password = data.get('password')
+
+    user = users_col.find_one({'user_id': user_id, 'password': password})
+    if not user:
+        return jsonify({'message': 'Invalid User ID or Password!'}), 401
+
+    token = jwt.encode({
+        'user_id': user['user_id'],
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24)
+    }, app.config['SECRET_KEY'], algorithm="HS256")
+
+    return jsonify({
+        'token': token,
+        'user': {'name': user['name'], 'user_id': user['user_id'], 'department': user['department']}
+    })
+
+# --- TEACHER DASHBOARD FEATURES ---
+
+# 1. Communications with University Offices
+@app.route('/api/messages', methods=['GET', 'POST'])
+@token_required
+def handle_messages(current_user):
+    if request.method == 'POST':
+        data = request.get_json()
+        doc = {
+            'teacher_email': current_user['email'],
+            'office': data.get('office'),  # e.g., 'Registrar', 'IT Support'
+            'message': data.get('message'),
+            'timestamp': datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M")
+        }
+        messages_col.insert_one(doc)
+        return jsonify({'message': 'Message sent successfully!'}), 201
+
+    messages = list(messages_col.find({'teacher_email': current_user['email']}, {'_id': 0}))
+    return jsonify(messages)
+
+# 2. Administrative Requests
+@app.route('/api/requests', methods=['GET', 'POST'])
+@token_required
+def handle_requests(current_user):
+    if request.method == 'POST':
+        data = request.get_json()
+        doc = {
+            'teacher_email': current_user['email'],
+            'title': data.get('title'),
+            'category': data.get('category'),  # e.g., 'Classroom Booking', 'Lab Maintenance'
+            'status': 'Pending',
+            'submitted_at': datetime.datetime.utcnow().strftime("%Y-%m-%d")
+        }
+        requests_col.insert_one(doc)
+        return jsonify({'message': 'Request submitted!'}), 201
+
+    requests_list = list(requests_col.find({'teacher_email': current_user['email']}, {'_id': 0}))
+    return jsonify(requests_list)
+
+# 3. Important Updates (Announcements)
+@app.route('/api/updates', methods=['GET'])
+@token_required
+def get_updates(current_user):
+    updates = list(updates_col.find({}, {'_id': 0}))
+    # Seed dummy update if empty
+    if not updates:
+        sample_update = {
+            'title': 'New Campus Navigation Map Updated',
+            'content': 'Building B navigation coordinates have been updated in the system.',
+            'date': datetime.datetime.utcnow().strftime("%Y-%m-%d")
+        }
+        updates_col.insert_one(sample_update)
+        updates = [sample_update]
+    return jsonify(updates)
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
