@@ -1,439 +1,223 @@
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-
-from routes import complaints
-from routes import office_routes
-from routes import requests
-from routes import user_routes
-from routes import offices
-
-
-from routes import complaints
-import json
 import os
-
+from datetime import datetime, timedelta
+from typing import Optional, List
+from fastapi import FastAPI, Depends, HTTPException, status, Header
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from motor.motor_asyncio import AsyncIOMotorClient
+import jwt
 
 app = FastAPI(
-    title="Campus Management System API"
+    title="Smart Campus Management API",
+    description="FastAPI Backend for Teacher Dashboard",
+    version="1.0.0"
 )
 
-
-# =================================================
-# CORS
-# =================================================
-
+# CORS Setup for React Frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5173", "http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-app.include_router(complaints.router)
-app.include_router(office_routes.router)
-app.include_router(user_routes.router)
-app.include_router(requests.router)
-app.include_router(offices.router)
+SECRET_KEY = "smart_campus_secret_key_123"
+ALGORITHM = "HS256"
+
+# MongoDB Async Connection
+MONGO_URI = "mongodb://localhost:27017"
+client = AsyncIOMotorClient(MONGO_URI)
+db = client['smart_campus_db']
+
+users_col = db['teachers']
+messages_col = db['office_messages']
+requests_col = db['admin_requests']
+updates_col = db['campus_updates']
 
 
-# =================================================
-# DATA FILES
-# =================================================
+# --- Pydantic Schemas (Data Validation) ---
 
-DATA_FOLDER = "data"
+class LoginRequest(BaseModel):
+    user_id: str
+    password: str
 
-USER_FILE = os.path.join(DATA_FOLDER, "users.json")
-OFFICE_FILE = os.path.join(DATA_FOLDER, "offices.json")
-REQUEST_FILE = os.path.join(DATA_FOLDER, "requests.json")
+class MessageCreate(BaseModel):
+    office: str
+    message: str
 
-
-os.makedirs(DATA_FOLDER, exist_ok=True)
-
-
-for file in [
-    USER_FILE,
-    OFFICE_FILE,
-    REQUEST_FILE
-]:
-
-    if not os.path.exists(file):
-        with open(file, "w") as f:
-            json.dump([], f, indent=4)
+class AdminRequestCreate(BaseModel):
+    title: str
+    category: str
 
 
+# --- Database Seeding on Startup ---
 
-# =================================================
-# JSON HELPERS
-# =================================================
-
-def read_json(file):
-
-    try:
-        with open(file, "r") as f:
-            return json.load(f)
-
-    except:
-        return []
-
-
-
-def save_json(file, data):
-
-    with open(file, "w") as f:
-        json.dump(
-            data,
-            f,
-            indent=4
-        )
-
-
-
-# =================================================
-# HOME
-# =================================================
-
-@app.get("/")
-def home():
-
-    return {
-        "message": "Campus Management System Backend Running Successfully!"
-    }
-
-
-
-# =================================================
-# USER MANAGEMENT
-# =================================================
-
-
-@app.get("/users")
-def get_users():
-
-    return read_json(USER_FILE)
-
-
-
-@app.post("/users")
-def create_user(user: dict):
-
-    users = read_json(USER_FILE)
-
-
-    new_user = {
-
-        "id": len(users) + 1,
-
-        "name": user.get("name"),
-
-        "email": user.get("email"),
-
-        "role": user.get("role"),
-
-        "department": user.get("department", "")
-
-    }
-
-
-    users.append(new_user)
-
-    save_json(
-        USER_FILE,
-        users
-    )
-
-
-    return {
-        "message": "User Added Successfully",
-        "data": new_user
-    }
-
-
-
-@app.put("/users/{user_id}")
-def update_user(
-        user_id:int,
-        updated_user:dict
-):
-
-    users = read_json(USER_FILE)
-
-
-    for user in users:
-
-        if user["id"] == user_id:
-
-            user.update(updated_user)
-
-            save_json(
-                USER_FILE,
-                users
-            )
-
-
-            return {
-                "message":"User Updated Successfully",
-                "data":user
+@app.on_event("startup")
+async def seed_default_teachers():
+    if await users_col.count_documents({}) == 0:
+        teachers = [
+            {
+                "user_id": "123",
+                "name": "Md. Ashraful Amin",
+                "password": "pass123",
+                "department": "Computer Science & Engineering"
+            },
+            {
+                "user_id": "456",
+                "name": "Md. Fahad Monir",
+                "password": "pass456",
+                "department": "Computer Science & Engineering"
+            },
+            {
+                "user_id": "789",
+                "name": "Md. Asif Mahmood",
+                "password": "pass789",
+                "department": "Computer Science & Engineering"
             }
-
-
-    raise HTTPException(
-        status_code=404,
-        detail="User not found"
-    )
-
-
-
-@app.delete("/users/{user_id}")
-def delete_user(user_id:int):
-
-    users = read_json(USER_FILE)
-
-
-    new_users = [
-
-        user for user in users
-
-        if user["id"] != user_id
-
-    ]
-
-
-    if len(new_users) == len(users):
-
-        raise HTTPException(
-            status_code=404,
-            detail="User not found"
-        )
-
-
-    save_json(
-        USER_FILE,
-        new_users
-    )
-
-
-    return {
-        "message":"User Deleted Successfully"
-    }
-
-
-
-
-
-# =================================================
-# REQUEST MANAGEMENT
-# =================================================
-
-
-@app.get("/requests")
-def get_requests():
-
-    return read_json(REQUEST_FILE)
-
-
-
-@app.post("/requests")
-def create_request(request:dict):
-
-    requests = read_json(REQUEST_FILE)
-
-
-    requests.append(request)
-
-
-    save_json(
-        REQUEST_FILE,
-        requests
-    )
-
-
-    return {
-
-        "message":"Request Submitted Successfully",
-
-        "data":request
-
-    }
-
-
-
-@app.delete("/requests/{request_id}")
-def delete_request(request_id:str):
-
-    requests = read_json(REQUEST_FILE)
-
-
-    new_requests = [
-
-        r for r in requests
-
-        if r.get("id") != request_id
-
-    ]
-
-
-    if len(new_requests)==len(requests):
-
-        raise HTTPException(
-            status_code=404,
-            detail="Request not found"
-        )
-
-
-    save_json(
-        REQUEST_FILE,
-        new_requests
-    )
-
-
-    return {
-        "message":"Request Deleted Successfully"
-    }
-
-
-
-
-
-# =================================================
-# OFFICE MANAGEMENT
-# =================================================
-
-
-@app.get("/offices")
-def get_offices():
-
-    offices = read_json(OFFICE_FILE)
-
-    users = read_json(USER_FILE)
-
-
-
-    for office in offices:
-
-
-        department_users = [
-
-            user
-
-            for user in users
-
-            if user.get("department")
-            ==
-            office.get("name")
-
         ]
+        await users_col.insert_many(teachers)
 
 
-        office["staff_count"] = len(
-            department_users
-        )
+# --- Authentication Dependency ---
 
-
-        head = next(
-
-            (
-
-                user["name"]
-
-                for user in department_users
-
-                if user.get("role")
-                in
-                [
-                    "Head",
-                    "Department Head"
-                ]
-
-            ),
-
-            "Not Assigned"
-
-        )
-
-
-        office["head"] = head
-
-
-
-    return offices
-
-
-
-
-
-@app.post("/offices")
-def create_office(office:dict):
-
-    offices = read_json(OFFICE_FILE)
-
-
-    new_office={
-
-        "id":len(offices)+1,
-
-        "name":office.get("name"),
-
-        "description":
-        office.get("description",""),
-
-        "location":
-        office.get("location","")
-
-    }
-
-
-    offices.append(new_office)
-
-
-    save_json(
-        OFFICE_FILE,
-        offices
-    )
-
-
-    return {
-
-        "message":"Office Added Successfully",
-
-        "data":new_office
-
-    }
-
-
-
-
-@app.delete("/offices/{office_id}")
-def delete_office(office_id:int):
-
-    offices = read_json(OFFICE_FILE)
-
-
-    new_offices=[
-
-        office
-
-        for office in offices
-
-        if office["id"] != office_id
-
-    ]
-
-
-    if len(new_offices)==len(offices):
-
+async def get_current_user(authorization: Optional[str] = Header(None)):
+    if not authorization:
         raise HTTPException(
-            status_code=404,
-            detail="Office not found"
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authorization header is missing!"
+        )
+    
+    try:
+        parts = authorization.split(" ")
+        if len(parts) != 2 or parts[0].lower() != "bearer":
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token header format!"
+            )
+        
+        token = parts[1]
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id = payload.get("user_id")
+        
+        if not user_id:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token payload!"
+            )
+            
+        current_user = await users_col.find_one({"user_id": user_id}, {"_id": 0})
+        if not current_user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="User not found!"
+            )
+            
+        return current_user
+
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token has expired!"
+        )
+    except jwt.InvalidTokenError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token is invalid!"
         )
 
 
-    save_json(
-        OFFICE_FILE,
-        new_offices
-    )
+# --- API Routes ---
 
+@app.post("/api/login")
+async def login(credentials: LoginRequest):
+    user = await users_col.find_one({
+        "user_id": credentials.user_id,
+        "password": credentials.password
+    })
+    
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid User ID or Password!"
+        )
+
+    token_payload = {
+        "user_id": user["user_id"],
+        "exp": datetime.utcnow() + timedelta(hours=24)
+    }
+    token = jwt.encode(token_payload, SECRET_KEY, algorithm=ALGORITHM)
 
     return {
-        "message":"Office Deleted Successfully"
+        "token": token,
+        "user": {
+            "name": user["name"],
+            "user_id": user["user_id"],
+            "department": user["department"]
+        }
     }
+
+
+@app.get("/api/updates")
+async def get_updates(current_user: dict = Depends(get_current_user)):
+    updates = await updates_col.find({}, {"_id": 0}).to_list(length=100)
+    
+    if not updates:
+        sample_update = {
+            "title": "New Campus Navigation Map Released",
+            "content": "Building C and Science Complex floor maps updated.",
+            "date": datetime.utcnow().strftime("%Y-%m-%d")
+        }
+        await updates_col.insert_one(sample_update)
+        updates = await updates_col.find({}, {"_id": 0}).to_list(length=100)
+        
+    return updates
+
+
+@app.get("/api/messages")
+async def get_messages(current_user: dict = Depends(get_current_user)):
+    messages = await messages_col.find(
+        {"teacher_id": current_user["user_id"]}, 
+        {"_id": 0}
+    ).to_list(length=100)
+    return messages
+
+
+@app.post("/api/messages", status_code=status.HTTP_201_CREATED)
+async def create_message(
+    payload: MessageCreate, 
+    current_user: dict = Depends(get_current_user)
+):
+    doc = {
+        "teacher_id": current_user["user_id"],
+        "office": payload.office,
+        "message": payload.message,
+        "timestamp": datetime.utcnow().strftime("%Y-%m-%d %H:%M")
+    }
+    await messages_col.insert_one(doc)
+    return {"message": "Message sent successfully!"}
+
+
+@app.get("/api/requests")
+async def get_requests(current_user: dict = Depends(get_current_user)):
+    requests_list = await requests_col.find(
+        {"teacher_id": current_user["user_id"]}, 
+        {"_id": 0}
+    ).to_list(length=100)
+    return requests_list
+
+
+@app.post("/api/requests", status_code=status.HTTP_201_CREATED)
+async def create_request(
+    payload: AdminRequestCreate, 
+    current_user: dict = Depends(get_current_user)
+):
+    doc = {
+        "teacher_id": current_user["user_id"],
+        "title": payload.title,
+        "category": payload.category,
+        "status": "Pending",
+        "submitted_at": datetime.utcnow().strftime("%Y-%m-%d")
+    }
+    await requests_col.insert_one(doc)
+    return {"message": "Request submitted!"}

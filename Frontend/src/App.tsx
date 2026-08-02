@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import LoginPage from './Login';
 import  Navigation  from './components/Navigation';
-import Updates from './components/Updates';
+import {Updates} from './components/Updates';
 import Communications from './components/Communications';
 import Requests from './components/Requests';
 
