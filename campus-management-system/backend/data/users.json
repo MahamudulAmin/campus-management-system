@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "name": "favin",
+        "email": "qw",
+        "role": "Department Head",
+        "department": "Finance Office"
+    },
+    {
+        "id": 2,
+        "name": "edfd",
+        "email": "ed",
+        "role": "Officer",
+        "department": "Registrar Office"
+    },
+    {
+        "id": 3,
+        "name": "Favin",
+        "email": "aaaaaaa",
+        "role": "Department Head",
+        "department": "Registrar Office"
+    },
+    {
+        "id": 4,
+        "name": "4w",
+        "email": "re",
+        "role": "Department Head",
+        "department": "Finance Office"
+    }
+]
