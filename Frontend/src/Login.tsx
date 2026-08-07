@@ -30,7 +30,7 @@ export const LoginPage: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         setError(data.message || 'Invalid User ID or password.');
       }
     } catch {
-      setError('Unable to connect to the backend server. Please check if Flask is running.');
+      setError('Unable to connect to the backend server. Please check if FastAPI is running.');
     } finally {
       setLoading(false);
     }

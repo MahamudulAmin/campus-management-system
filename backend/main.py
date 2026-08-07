@@ -127,8 +127,6 @@ async def get_current_user(authorization: Optional[str] = Header(None)):
         )
 
 
-# --- API Routes ---
-
 @app.post("/api/login")
 async def login(credentials: LoginRequest):
     user = await users_col.find_one({
