@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Navbar from "../../components/Navbar";
+// import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import SummaryCard from "../../components/SummaryCard";
 import OfficeCard from "../../components/OfficeCard";
