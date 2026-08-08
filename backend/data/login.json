@@ -1,0 +1,50 @@
+[
+    {
+        "id": "2320132",
+        "name": "Mahamudul Amn",
+        "email": "2320132@iub.edu.bd",
+        "password": "2320132",
+        "role": "Student",
+        "phone": "",
+        "department": "CSE",
+        "semester": "",
+        "gpa": "",
+        "address": "Dhaka"
+    },
+    {
+        "id": "1111111",
+        "name": "Amin",
+        "email": "1111111@iub.edu.bd",
+        "password": "1111111",
+        "role": "Student",
+        "phone": "",
+        "department": "CSE",
+        "semester": "Spring",
+        "gpa": "",
+        "address": "dhaka"
+    },
+    {
+        "id": "2222222",
+        "name": "rahul",
+        "email": "2222222@iub.edu.bd",
+        "password": "2222222",
+        "role": "Student",
+        "phone": "",
+        "department": "",
+        "semester": "",
+        "gpa": "",
+        "address": ""
+    },
+    {
+        "id": "0000000",
+        "name": "abc",
+        "email": "0000000@iub.edu.bd",
+        "password": "0000000",
+        "role": "Student",
+        "phone": "",
+        "department": "",
+        "semester": "",
+        "gpa": "",
+        "address": ""
+    }
+]

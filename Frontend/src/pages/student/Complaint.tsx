@@ -4,12 +4,23 @@ import { useState } from "react";
 import API_URL from "../../config";
 
 const Complaint = () => {
+
   const [formData, setFormData] = useState({
     complaintType: "",
     description: "",
   });
 
-  const [submitted, setSubmitted] = useState(false);
+  const [submitted, setSubmitted] =
+    useState(false);
+
+  const [referenceId, setReferenceId] =
+    useState("");
+
+  const [error, setError] =
+    useState("");
+
+  const [loading, setLoading] =
+    useState(false);
 
   const complaintTypes = [
     "Academic Issue",
@@ -20,168 +31,509 @@ const Complaint = () => {
     "Other",
   ];
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  // =====================================================
+  // GET LOGGED-IN STUDENT ID
+  // =====================================================
+
+  const getStudentId = () => {
+
+    const userId =
+      localStorage.getItem("userId");
+
+    if (
+      userId &&
+      /^\d{7}$/.test(userId)
+    ) {
+      return userId;
+    }
+
+    return "";
   };
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  // =====================================================
+  // HANDLE CHANGE
+  // =====================================================
 
-  if (formData.complaintType && formData.description) {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement |
+      HTMLTextAreaElement |
+      HTMLSelectElement
+    >
+  ) => {
 
-    const complaint = {
-      student_id: "1234567",
-      title: formData.complaintType,
-      description: formData.description,
-      status: "Pending"
-    };
+    const {
+      name,
+      value
+    } = e.target;
 
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+
+    setError("");
+  };
+
+  // =====================================================
+  // SUBMIT
+  // =====================================================
+
+  const handleSubmit = async (
+    e: React.FormEvent
+  ) => {
+
+    e.preventDefault();
+
+    setError("");
+
+    const studentId =
+      getStudentId();
+
+    // Student ID check
+
+    if (!studentId) {
+
+      setError(
+        "Student information was not found. Please login again."
+      );
+
+      return;
+    }
+
+    // Form validation
+
+    if (!formData.complaintType) {
+
+      setError(
+        "Please select a complaint type."
+      );
+
+      return;
+    }
+
+    if (
+      !formData.description.trim()
+    ) {
+
+      setError(
+        "Please enter the complaint description."
+      );
+
+      return;
+    }
 
     try {
 
-      const response = await fetch(
-        "http://127.0.0.1:8000/complaints/",
-        //  `${API_URL}/complaints/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(complaint),
-        }
-      );
+      setLoading(true);
 
+      const complaint = {
 
-      if (response.ok) {
-        setSubmitted(true);
+        student_id:
+          studentId,
 
-        setTimeout(() => {
-          setSubmitted(false);
+        title:
+          formData.complaintType,
 
-          setFormData({
-            complaintType: "",
-            description: ""
-          });
+        category:
+          formData.complaintType,
 
-        }, 3000);
+        description:
+          formData.description,
+
+        status:
+          "Pending"
+      };
+
+      const response =
+        await fetch(
+          `${API_URL}/complaints/`,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+
+            body:
+              JSON.stringify(
+                complaint
+              ),
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.detail ||
+          "Failed to submit complaint."
+        );
       }
 
+      setReferenceId(
+        data.complaint?.id ||
+        "Submitted"
+      );
+
+      setSubmitted(true);
+
+      setFormData({
+        complaintType: "",
+        description: ""
+      });
+
+      setTimeout(() => {
+
+        setSubmitted(false);
+
+      }, 5000);
 
     } catch (error) {
 
-      console.log(
+      console.error(
         "Complaint submit error:",
         error
       );
 
-    }
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Could not submit complaint."
+      );
 
-  }
-};
+    } finally {
+
+      setLoading(false);
+    }
+  };
 
   return (
-    <div style={{ backgroundColor: "#f4f6f9", minHeight: "100vh" }}>
+
+    <div
+      style={{
+        backgroundColor:
+          "#f4f6f9",
+        minHeight:
+          "100vh"
+      }}
+    >
+
       <Navbar />
-      <div style={{ display: "flex" }}>
+
+      <div
+        style={{
+          display: "flex"
+        }}
+      >
+
         <Sidebar />
-        <div style={{ flex: 1, padding: "30px" }}>
-          <h1>File a Complaint</h1>
+
+        <div
+          style={{
+            flex: 1,
+            padding: "30px"
+          }}
+        >
+
+          <h1>
+            File a Complaint
+          </h1>
+
+          <p
+            style={{
+              color: "#64748b",
+              marginBottom: "25px"
+            }}
+          >
+            Submit a complaint to
+            the university administration.
+          </p>
+
+          {/* SUCCESS */}
 
           {submitted && (
+
             <div
               style={{
-                backgroundColor: "#d4edda",
-                border: "1px solid #c3e6cb",
-                color: "#155724",
-                padding: "15px",
-                borderRadius: "6px",
-                marginBottom: "20px",
+                backgroundColor:
+                  "#d4edda",
+
+                border:
+                  "1px solid #c3e6cb",
+
+                color:
+                  "#155724",
+
+                padding:
+                  "15px",
+
+                borderRadius:
+                  "6px",
+
+                marginBottom:
+                  "20px"
               }}
             >
-              ✓ Complaint submitted successfully! Reference ID: COMP-{Math.random().toString(36).substr(2, 6).toUpperCase()}
+
+              ✓ Complaint submitted
+              successfully!
+
+              <br />
+
+              Reference ID:
+
+              <strong>
+                {" "}
+                {referenceId}
+              </strong>
+
             </div>
           )}
 
+          {/* ERROR */}
+
+          {error && (
+
+            <div
+              style={{
+                backgroundColor:
+                  "#fee2e2",
+
+                border:
+                  "1px solid #fecaca",
+
+                color:
+                  "#b91c1c",
+
+                padding:
+                  "15px",
+
+                borderRadius:
+                  "6px",
+
+                marginBottom:
+                  "20px"
+              }}
+            >
+              {error}
+            </div>
+          )}
+
+          {/* FORM */}
+
           <div
             style={{
-              backgroundColor: "#fff",
-              padding: "30px",
-              borderRadius: "10px",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-              maxWidth: "600px",
+              backgroundColor:
+                "#fff",
+
+              padding:
+                "30px",
+
+              borderRadius:
+                "10px",
+
+              boxShadow:
+                "0 2px 8px rgba(0,0,0,0.1)",
+
+              maxWidth:
+                "650px"
             }}
           >
-            <form onSubmit={handleSubmit}>
-              <div style={{ marginBottom: "20px" }}>
-                <label style={{ display: "block", marginBottom: "8px", fontWeight: "bold" }}>
-                  Complaint Type
-                </label>
-                <select
-                  name="complaintType"
-                  value={formData.complaintType}
-                  onChange={handleChange}
+
+            <form
+              onSubmit={
+                handleSubmit
+              }
+            >
+
+              {/* COMPLAINT TYPE */}
+
+              <div
+                style={{
+                  marginBottom:
+                    "20px"
+                }}
+              >
+
+                <label
                   style={{
-                    width: "100%",
-                    padding: "10px",
-                    border: "1px solid #ddd",
-                    borderRadius: "6px",
-                    boxSizing: "border-box",
+                    display:
+                      "block",
+
+                    marginBottom:
+                      "8px",
+
+                    fontWeight:
+                      "bold"
                   }}
                 >
-                  <option value="">-- Select complaint type --</option>
-                  {complaintTypes.map((type) => (
-                    <option key={type} value={type}>
-                      {type}
-                    </option>
-                  ))}
+                  Complaint Type
+                </label>
+
+                <select
+                  name="complaintType"
+                  value={
+                    formData.complaintType
+                  }
+                  onChange={
+                    handleChange
+                  }
+                  style={{
+                    width:
+                      "100%",
+
+                    padding:
+                      "10px",
+
+                    border:
+                      "1px solid #ddd",
+
+                    borderRadius:
+                      "6px",
+
+                    boxSizing:
+                      "border-box"
+                  }}
+                >
+
+                  <option value="">
+                    -- Select complaint
+                    type --
+                  </option>
+
+                  {complaintTypes.map(
+                    (type) => (
+
+                      <option
+                        key={type}
+                        value={type}
+                      >
+                        {type}
+                      </option>
+
+                    )
+                  )}
+
                 </select>
+
               </div>
 
-              <div style={{ marginBottom: "20px" }}>
-                <label style={{ display: "block", marginBottom: "8px", fontWeight: "bold" }}>
+              {/* DESCRIPTION */}
+
+              <div
+                style={{
+                  marginBottom:
+                    "20px"
+                }}
+              >
+
+                <label
+                  style={{
+                    display:
+                      "block",
+
+                    marginBottom:
+                      "8px",
+
+                    fontWeight:
+                      "bold"
+                  }}
+                >
                   Description
                 </label>
+
                 <textarea
                   name="description"
-                  value={formData.description}
-                  onChange={handleChange}
+                  value={
+                    formData.description
+                  }
+                  onChange={
+                    handleChange
+                  }
                   placeholder="Describe your complaint in detail..."
                   style={{
-                    width: "100%",
-                    padding: "10px",
-                    border: "1px solid #ddd",
-                    borderRadius: "6px",
-                    boxSizing: "border-box",
-                    minHeight: "150px",
-                    fontFamily: "Arial",
+                    width:
+                      "100%",
+
+                    padding:
+                      "10px",
+
+                    border:
+                      "1px solid #ddd",
+
+                    borderRadius:
+                      "6px",
+
+                    boxSizing:
+                      "border-box",
+
+                    minHeight:
+                      "150px",
+
+                    fontFamily:
+                      "Arial",
+
+                    resize:
+                      "vertical"
                   }}
                 />
+
               </div>
+
+              {/* SUBMIT */}
 
               <button
                 type="submit"
+                disabled={loading}
                 style={{
-                  padding: "10px 30px",
-                  backgroundColor: "#e74c3c",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "6px",
-                  cursor: "pointer",
-                  fontSize: "16px",
-                  fontWeight: "bold",
+                  padding:
+                    "11px 30px",
+
+                  backgroundColor:
+                    loading
+                      ? "#94a3b8"
+                      : "#e74c3c",
+
+                  color:
+                    "white",
+
+                  border:
+                    "none",
+
+                  borderRadius:
+                    "6px",
+
+                  cursor:
+                    loading
+                      ? "not-allowed"
+                      : "pointer",
+
+                  fontSize:
+                    "16px",
+
+                  fontWeight:
+                    "bold"
                 }}
               >
-                Submit Complaint
+
+                {loading
+                  ? "Submitting..."
+                  : "Submit Complaint"}
+
               </button>
+
             </form>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
   );
 };

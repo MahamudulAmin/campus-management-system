@@ -1,0 +1,1192 @@
+/* =========================================================
+   ADMIN REPORTS / COMPLAINTS
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: #f5f7fb;
+}
+
+.admin-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-complaints-page {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  padding: 28px;
+}
+
+.report-page {
+  width: 100%;
+  max-width: 1700px;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.report-page-header {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.report-header-text {
+  width: 100%;
+}
+
+.report-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.report-title-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #eef2ff;
+  border: 1px solid #e0e7ff;
+  border-radius: 12px;
+
+  font-size: 22px;
+}
+
+.report-page-header h1 {
+  margin: 0;
+  color: #172033;
+  font-size: 28px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.report-page-header p {
+  margin: 7px 0 0;
+  color: #718096;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   MAIN REPORT DOCUMENT
+========================================================= */
+
+.report-document {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e7ebf2;
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+  padding: 28px;
+  overflow: hidden;
+}
+
+.generated-report {
+  padding-bottom: 24px;
+}
+
+/* =========================================================
+   DOCUMENT HEADER
+========================================================= */
+
+.report-document-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 25px;
+
+  padding-bottom: 24px;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.report-section-label {
+  display: inline-block;
+  margin-bottom: 7px;
+
+  color: #667eea;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+}
+
+.report-document-header h2 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 21px;
+  font-weight: 750;
+}
+
+.report-document-header p {
+  margin: 7px 0 0;
+  color: #7a8597;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.report-generated {
+  min-width: 170px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  padding: 13px 16px;
+
+  background: #f8fafc;
+  border: 1px solid #edf1f6;
+  border-radius: 11px;
+}
+
+.report-generated span {
+  color: #8a94a6;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.report-generated strong {
+  margin-top: 4px;
+  color: #273247;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   FILTER CARD
+========================================================= */
+
+.report-filter-card {
+  margin-top: 24px;
+  padding: 20px;
+
+  background: #f8fafc;
+  border: 1px solid #e9edf3;
+  border-radius: 14px;
+}
+
+.report-filter-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  margin-bottom: 17px;
+}
+
+.report-filter-heading h3 {
+  margin: 0;
+  color: #273247;
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.report-filter-heading p {
+  margin: 4px 0 0;
+  color: #8791a2;
+  font-size: 12px;
+}
+
+.filter-count {
+  flex-shrink: 0;
+
+  padding: 6px 10px;
+
+  background: #ffffff;
+  border: 1px solid #e4e8ef;
+  border-radius: 20px;
+
+  color: #667085;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+/* =========================================================
+   SEARCH / FILTER CONTROLS
+========================================================= */
+
+.complaints-controls {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: minmax(250px, 1fr) 180px auto auto;
+  gap: 10px;
+
+  align-items: stretch;
+}
+
+.complaint-search {
+  position: relative;
+  min-width: 0;
+}
+
+.complaint-search input {
+  width: 100%;
+  height: 44px;
+
+  padding: 0 42px 0 40px;
+
+  background: #ffffff;
+  border: 1px solid #dce2ea;
+  border-radius: 10px;
+
+  color: #273247;
+  font-size: 13px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.complaint-search input::placeholder {
+  color: #a0a8b6;
+}
+
+.complaint-search input:focus {
+  border-color: #8b9cf6;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #7d8797;
+  font-size: 15px;
+
+  pointer-events: none;
+}
+
+.search-clear {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+
+  width: 27px;
+  height: 27px;
+
+  transform: translateY(-50%);
+
+  border: none;
+  border-radius: 7px;
+
+  background: #f1f3f6;
+  color: #7a8494;
+
+  cursor: pointer;
+
+  font-size: 17px;
+  line-height: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-clear:hover {
+  background: #e6e9ee;
+  color: #374151;
+}
+
+.status-select-wrapper {
+  min-width: 0;
+}
+
+.status-select-wrapper select {
+  width: 100%;
+  height: 44px;
+
+  padding: 0 36px 0 13px;
+
+  background: #ffffff;
+  border: 1px solid #dce2ea;
+  border-radius: 10px;
+
+  color: #354052;
+  font-size: 13px;
+
+  cursor: pointer;
+  outline: none;
+}
+
+.status-select-wrapper select:focus {
+  border-color: #8b9cf6;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.clear-filter-btn,
+.refresh-btn {
+  height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  padding: 0 15px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.clear-filter-btn {
+  background: #ffffff;
+  border: 1px solid #dce2ea;
+  color: #5d6675;
+}
+
+.clear-filter-btn:hover:not(:disabled) {
+  background: #f3f4f6;
+  border-color: #cbd1da;
+}
+
+.clear-filter-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.refresh-btn {
+  background: #ffffff;
+  border: 1px solid #dce2ea;
+  color: #465264;
+}
+
+.refresh-btn:hover:not(:disabled) {
+  background: #f1f4f8;
+  border-color: #cbd3df;
+}
+
+.refresh-btn span,
+.clear-filter-btn span {
+  font-size: 15px;
+}
+
+.refresh-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.report-summary {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+.report-summary-card {
+  min-width: 0;
+
+  padding: 17px;
+
+  background: #ffffff;
+  border: 1px solid #e8ecf2;
+  border-radius: 13px;
+
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.025);
+
+  position: relative;
+  overflow: hidden;
+}
+
+.report-summary-card::before {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 3px;
+
+  background: #cbd5e1;
+}
+
+.report-summary-card span {
+  display: block;
+
+  color: #7c8797;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.report-summary-card strong {
+  display: block;
+
+  margin-top: 7px;
+
+  color: #273247;
+  font-size: 25px;
+  line-height: 1;
+  font-weight: 750;
+}
+
+.report-summary-card small {
+  display: block;
+
+  margin-top: 7px;
+
+  color: #9aa3b2;
+  font-size: 10px;
+}
+
+.pending-card::before {
+  background: #f59e0b;
+}
+
+.progress-card::before {
+  background: #3b82f6;
+}
+
+.resolved-card::before {
+  background: #10b981;
+}
+
+.rejected-card::before {
+  background: #ef4444;
+}
+
+.total-card::before {
+  background: #667eea;
+}
+
+/* =========================================================
+   FILTER INFO
+========================================================= */
+
+.report-filter-info {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 20px;
+  padding: 12px 14px;
+
+  background: #f8fafc;
+  border: 1px solid #edf0f4;
+  border-radius: 10px;
+
+  color: #727d8e;
+  font-size: 12px;
+}
+
+.report-filter-info strong {
+  color: #344054;
+  font-weight: 700;
+}
+
+.active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.active-filters span {
+  padding: 5px 9px;
+
+  background: #ffffff;
+  border: 1px solid #e3e7ed;
+  border-radius: 6px;
+
+  color: #7b8595;
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.report-table-wrapper {
+  width: 100%;
+
+  margin-top: 18px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  border: 1px solid #e7ebf1;
+  border-radius: 12px;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.report-table {
+  width: 100%;
+  min-width: 1100px;
+
+  border-collapse: separate;
+  border-spacing: 0;
+
+  background: #ffffff;
+}
+
+.report-table thead th {
+  padding: 13px 14px;
+
+  background: #f8fafc;
+  border-bottom: 1px solid #e4e8ee;
+
+  color: #687386;
+
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.035em;
+  text-align: left;
+
+  white-space: nowrap;
+}
+
+.report-table tbody td {
+  padding: 14px;
+
+  border-bottom: 1px solid #edf0f4;
+
+  color: #596476;
+
+  font-size: 12px;
+  line-height: 1.5;
+
+  vertical-align: top;
+}
+
+.report-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.report-table tbody tr:hover {
+  background: #fafbfc;
+}
+
+.report-table tbody td strong {
+  color: #344054;
+  font-weight: 650;
+}
+
+.complaint-id {
+  display: inline-block;
+
+  padding: 5px 7px;
+
+  background: #f1f4ff;
+  border-radius: 6px;
+
+  color: #5969c7;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.category-badge {
+  display: inline-block;
+
+  padding: 5px 8px;
+
+  background: #f5f6f8;
+  border-radius: 6px;
+
+  color: #667085;
+  font-size: 10px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+.description-cell {
+  max-width: 300px;
+
+  color: #707b8c;
+
+  line-height: 1.5;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* =========================================================
+   STATUS BADGES
+========================================================= */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 9px;
+
+  border-radius: 20px;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.status-pending {
+  background: #fff7e6;
+  color: #b7791f;
+}
+
+.status-in-progress {
+  background: #edf5ff;
+  color: #2872c8;
+}
+
+.status-resolved {
+  background: #eafaf3;
+  color: #16845b;
+}
+
+.status-rejected {
+  background: #fff0f0;
+  color: #d14343;
+}
+
+/* =========================================================
+   GENERATE REPORT FOOTER
+========================================================= */
+
+.generate-report-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-top: 20px;
+  padding: 17px;
+
+  background: #f8fafc;
+  border: 1px solid #e8edf3;
+  border-radius: 12px;
+}
+
+.generate-info {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  min-width: 0;
+}
+
+.generate-info-icon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #eafaf3;
+  border-radius: 50%;
+
+  color: #159669;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.generate-info strong {
+  display: block;
+
+  color: #344054;
+  font-size: 13px;
+}
+
+.generate-info p {
+  margin: 3px 0 0;
+
+  color: #8a94a4;
+  font-size: 11px;
+}
+
+.generate-report-btn,
+.report-download-btn,
+.edit-report-btn {
+  min-height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 0 18px;
+
+  border-radius: 9px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.generate-report-btn {
+  background: #667eea;
+  border: 1px solid #667eea;
+
+  color: #ffffff;
+
+  box-shadow: 0 5px 12px rgba(102, 126, 234, 0.2);
+}
+
+.generate-report-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 16px rgba(102, 126, 234, 0.25);
+}
+
+.generate-report-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* =========================================================
+   GENERATED REPORT ACTIONS
+========================================================= */
+
+.generated-report-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 20px;
+}
+
+.edit-report-btn {
+  background: #ffffff;
+  border: 1px solid #dce2ea;
+  color: #596476;
+}
+
+.edit-report-btn:hover {
+  background: #f7f8fa;
+}
+
+.report-download-btn {
+  background: #172033;
+  border: 1px solid #172033;
+
+  color: #ffffff;
+}
+
+.report-download-btn:hover:not(:disabled) {
+  background: #273247;
+  transform: translateY(-1px);
+}
+
+.report-download-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   EMPTY / ERROR / LOADING
+========================================================= */
+
+.complaints-loading {
+  min-height: 280px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff;
+  border: 1px solid #e7ebf2;
+  border-radius: 18px;
+}
+
+.loading-spinner {
+  width: 34px;
+  height: 34px;
+
+  border: 3px solid #e6eaf1;
+  border-top-color: #667eea;
+
+  border-radius: 50%;
+
+  animation: reportSpin 0.8s linear infinite;
+}
+
+.complaints-loading p {
+  margin: 12px 0 0;
+
+  color: #7b8595;
+  font-size: 13px;
+}
+
+@keyframes reportSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.complaints-empty {
+  margin-top: 20px;
+  padding: 55px 25px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background: #fafbfc;
+  border: 1px dashed #dce2e9;
+  border-radius: 13px;
+}
+
+.complaints-empty .empty-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 12px;
+
+  background: #f1f3f6;
+  border-radius: 50%;
+
+  font-size: 20px;
+}
+
+.complaints-empty h3 {
+  margin: 0;
+
+  color: #344054;
+  font-size: 15px;
+}
+
+.complaints-empty p {
+  max-width: 450px;
+
+  margin: 7px 0 0;
+
+  color: #8a94a4;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.report-empty {
+  margin-top: 18px;
+}
+
+.empty-clear-btn {
+  margin-top: 16px;
+}
+
+/* =========================================================
+   RESPONSIVE - LARGE TABLET
+========================================================= */
+
+@media (max-width: 1200px) {
+  .admin-complaints-page {
+    padding: 22px;
+  }
+
+  .report-document {
+    padding: 23px;
+  }
+
+  .complaints-controls {
+    grid-template-columns: minmax(220px, 1fr) 170px auto auto;
+  }
+
+  .report-summary {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+  .admin-complaints-page {
+    padding: 18px;
+  }
+
+  .report-document {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .report-document-header {
+    flex-direction: column;
+  }
+
+  .report-generated {
+    width: 100%;
+    min-width: 0;
+
+    align-items: flex-start;
+  }
+
+  .complaints-controls {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .complaint-search {
+    grid-column: 1 / -1;
+  }
+
+  .clear-filter-btn,
+  .refresh-btn {
+    width: 100%;
+  }
+
+  .report-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .generate-report-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .generate-report-btn {
+    width: 100%;
+  }
+
+  .generated-report-actions {
+    flex-direction: column-reverse;
+  }
+
+  .edit-report-btn,
+  .report-download-btn {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+  .admin-complaints-page {
+    padding: 12px;
+  }
+
+  .report-page-header {
+    margin-bottom: 15px;
+  }
+
+  .report-title-row {
+    gap: 10px;
+  }
+
+  .report-title-icon {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 10px;
+
+    font-size: 18px;
+  }
+
+  .report-page-header h1 {
+    font-size: 21px;
+  }
+
+  .report-page-header p {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+
+  .report-document {
+    padding: 15px;
+    border-radius: 12px;
+  }
+
+  .report-document-header {
+    gap: 16px;
+    padding-bottom: 18px;
+  }
+
+  .report-document-header h2 {
+    font-size: 17px;
+  }
+
+  .report-document-header p {
+    font-size: 12px;
+  }
+
+  .report-filter-card {
+    margin-top: 16px;
+    padding: 13px;
+  }
+
+  .report-filter-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 13px;
+  }
+
+  .filter-count {
+    align-self: flex-start;
+  }
+
+  .complaints-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .complaint-search,
+  .status-select-wrapper,
+  .clear-filter-btn,
+  .refresh-btn {
+    width: 100%;
+  }
+
+  .complaint-search input,
+  .status-select-wrapper select,
+  .clear-filter-btn,
+  .refresh-btn {
+    height: 42px;
+  }
+
+  .report-summary {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .report-summary-card {
+    padding: 13px;
+  }
+
+  .report-summary-card strong {
+    font-size: 21px;
+  }
+
+  .report-summary-card small {
+    font-size: 9px;
+  }
+
+  .report-filter-info {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 14px;
+    padding: 10px;
+  }
+
+  .active-filters {
+    width: 100%;
+  }
+
+  .report-table-wrapper {
+    margin-top: 14px;
+    border-radius: 9px;
+  }
+
+  .report-table {
+    min-width: 1050px;
+  }
+
+  .generate-report-footer {
+    gap: 14px;
+    margin-top: 14px;
+    padding: 13px;
+  }
+
+  .generate-info {
+    align-items: flex-start;
+  }
+
+  .generated-report-actions {
+    gap: 8px;
+    margin-top: 14px;
+  }
+}
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+  .admin-complaints-page {
+    padding: 9px;
+  }
+
+  .report-document {
+    padding: 12px;
+  }
+
+  .report-title-icon {
+    display: none;
+  }
+
+  .report-page-header h1 {
+    font-size: 19px;
+  }
+
+  .report-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .report-summary-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .report-summary-card strong {
+    grid-row: span 2;
+    font-size: 22px;
+  }
+
+  .report-summary-card small {
+    margin-top: 0;
+  }
+}
