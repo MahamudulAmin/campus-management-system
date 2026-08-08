@@ -208,10 +208,9 @@ const StudentDashboard = () => {
 
     try {
 
-      const response =
-        await fetch(
-          `${API_URL}/requests/`
-        );
+      const response = await fetch(
+  "http://localhost:8000/requests/"
+);
 
 
       if (!response.ok) {

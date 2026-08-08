@@ -63,7 +63,7 @@ const fetchOffices=async()=>{
 try{
 
 const res=await fetch(
-"http://localhost:8000/offices"
+"http://127.0.0.1:8000/offices"
 );
 // const res = await fetch(
 //   `${API_URL}/offices`
@@ -112,7 +112,7 @@ if(editId!==null){
 // UPDATE
 
 await fetch(
-`http://localhost:8000/offices/${editId}`,
+`http://127.0.0.1:8000/offices/${editId}`,
 {
 // await fetch(
 //   `${API_URL}/offices/${editId}`,
@@ -138,7 +138,7 @@ else{
 // ADD
 
 await fetch(
-"http://localhost:8000/offices",
+"http://127.0.0.1:8000/offices",
 {
 // await fetch(
 //   `${API_URL}/offices`,
@@ -210,7 +210,7 @@ return;
 
 
 await fetch(
-`http://localhost:8000/offices/${id}`,
+`http://127.0.0.1:8000/offices/${id}`,
 {
 // await fetch(
 //   `${API_URL}/offices/${id}`,

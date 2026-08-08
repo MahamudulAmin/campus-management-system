@@ -46,5 +46,29 @@
         "semester": "",
         "gpa": "",
         "address": ""
+    },
+    {
+        "id": "2320131",
+        "name": "Student 2320131",
+        "email": "2320131@iub.edu.bd",
+        "password": "2320131",
+        "role": "Student",
+        "phone": "",
+        "department": "",
+        "semester": "",
+        "gpa": "",
+        "address": ""
+    },
+    {
+        "id": "2320231",
+        "name": "ahad",
+        "email": "2320231@iub.edu.bd",
+        "password": "2320231",
+        "role": "Student",
+        "phone": "",
+        "department": "",
+        "semester": "winter",
+        "gpa": "",
+        "address": "cumilla"
     }
 ]

@@ -1,35 +1,24 @@
 [
     {
-        "student_id": "2320132",
-        "student_name": "Mahamudul Amn",
-        "student_email": "2320132@iub.edu.bd",
+        "student_id": "1111111",
+        "student_name": "Amin",
+        "student_email": "1111111@iub.edu.bd",
         "title": "Staff Behavior",
-        "description": "not good",
-        "status": "In Progress",
-        "id": "COMP-0003",
-        "created_at": "2026-08-08T10:47:08.470884",
-        "updated_at": "2026-08-08T11:01:14.099928"
-    },
-    {
-        "student_id": "2222222",
-        "student_name": "rahul",
-        "student_email": "2222222@iub.edu.bd",
-        "title": "Facilities",
-        "description": "all are good",
-        "status": "In Progress",
-        "id": "COMP-0004",
-        "created_at": "2026-08-08T10:49:01.852651",
-        "updated_at": "2026-08-08T11:01:15.431616"
+        "description": "all good",
+        "status": "Resolved",
+        "id": "COMP-0001",
+        "created_at": "2026-08-08T13:52:25.616404",
+        "updated_at": "2026-08-08T13:53:14.464420"
     },
     {
         "student_id": "2320132",
         "student_name": "Mahamudul Amn",
         "student_email": "2320132@iub.edu.bd",
         "title": "Administrative",
-        "description": "is not bad",
-        "status": "In Progress",
-        "id": "COMP-0005",
-        "created_at": "2026-08-08T11:00:55.426091",
-        "updated_at": "2026-08-08T11:01:12.349903"
+        "description": "best",
+        "status": "Pending",
+        "id": "COMP-0002",
+        "created_at": "2026-08-08T13:52:50.018221",
+        "updated_at": "2026-08-08T13:53:16.373513"
     }
 ]

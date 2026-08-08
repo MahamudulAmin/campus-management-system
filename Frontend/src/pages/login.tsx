@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../styles/Login.css";
-import API_URL from "../config";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -38,11 +37,11 @@ const Login = () => {
     // ==========================================
     // ADMIN LOGIN
     // ==========================================
-    // Admin IDs are 2 digits
-    // Example: 12, 99
+    // Admin IDs are 4 digits
+    // Example: 1234, 5678
     // ==========================================
 
-    if (id.length === 2) {
+    if (id.length === 4) {
       localStorage.setItem("role", "admin");
       localStorage.setItem("userId", id);
 
@@ -80,8 +79,7 @@ const Login = () => {
       // SEND LOGIN REQUEST TO FASTAPI
       // ==========================================
 
-      const response = await fetch(
-        `${API_URL}/login/`,
+      const response = await fetch("http://127.0.0.1:8000/login/",
         {
           method: "POST",
 
