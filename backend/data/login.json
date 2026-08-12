@@ -1,0 +1,98 @@
+[
+    {
+        "id": "2320132",
+        "name": "Mahamudul Amn",
+        "email": "2320132@iub.edu.bd",
+        "password": "2320132",
+        "role": "Student",
+        "phone": "",
+        "department": "CSE",
+        "semester": "",
+        "gpa": "",
+        "address": "Dhaka"
+    },
+    {
+        "id": "1111111",
+        "name": "Amin n",
+        "email": "1111111@iub.edu.bd",
+        "password": "1111111",
+        "role": "Student",
+        "phone": "",
+        "department": "CSE",
+        "semester": "Spring",
+        "gpa": "",
+        "address": "dhaka"
+    },
+    {
+        "id": "2222222",
+        "name": "rahul",
+        "email": "2222222@iub.edu.bd",
+        "password": "2222222",
+        "role": "Student",
+        "phone": "",
+        "department": "",
+        "semester": "",
+        "gpa": "",
+        "address": ""
+    },
+    {
+        "id": "0000000",
+        "name": "abc",
+        "email": "0000000@iub.edu.bd",
+        "password": "0000000",
+        "role": "Student",
+        "phone": "",
+        "department": "",
+        "semester": "",
+        "gpa": "",
+        "address": ""
+    },
+    {
+        "id": "2320131",
+        "name": "Rahat",
+        "email": "2320131@iub.edu.bd",
+        "password": "2320131",
+        "role": "Student",
+        "phone": "",
+        "department": "",
+        "semester": "",
+        "gpa": "",
+        "address": ""
+    },
+    {
+        "id": "2320231",
+        "name": "ahad",
+        "email": "2320231@iub.edu.bd",
+        "password": "2320231",
+        "role": "Student",
+        "phone": "",
+        "department": "",
+        "semester": "winter",
+        "gpa": "",
+        "address": "cumilla"
+    },
+    {
+        "id": "2323132",
+        "name": "Student 2323132",
+        "email": "2323132@iub.edu.bd",
+        "password": "2323132",
+        "role": "Student",
+        "phone": "",
+        "department": "",
+        "semester": "",
+        "gpa": "",
+        "address": ""
+    },
+    {
+        "id": "2121212",
+        "name": "sohel",
+        "email": "2121212@iub.edu.bd",
+        "password": "2121212",
+        "role": "Student",
+        "phone": "",
+        "department": "BBA",
+        "semester": "",
+        "gpa": "",
+        "address": ""
+    }
+]

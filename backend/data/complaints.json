@@ -1,8 +1,90 @@
 [
     {
-        "student_id": "1234567",
-        "title": "Harassment",
-        "description": "df",
-        "status": "Pending"
+        "student_id": "1111111",
+        "student_name": "Amin",
+        "student_email": "1111111@iub.edu.bd",
+        "title": "Staff Behavior",
+        "description": "all good",
+        "status": "In Progress",
+        "id": "COMP-0001",
+        "created_at": "2026-08-08T13:52:25.616404",
+        "updated_at": "2026-08-10T12:12:18.588296"
+    },
+    {
+        "student_id": "2320132",
+        "student_name": "Mahamudul Amn",
+        "student_email": "2320132@iub.edu.bd",
+        "title": "Administrative",
+        "description": "best",
+        "status": "Resolved",
+        "id": "COMP-0002",
+        "created_at": "2026-08-08T13:52:50.018221",
+        "updated_at": "2026-08-10T12:12:20.171655"
+    },
+    {
+        "student_id": "2323132",
+        "student_name": "Student 2323132",
+        "student_email": "2323132@iub.edu.bd",
+        "title": "Facilities",
+        "description": "yfuhj",
+        "status": "Rejected",
+        "id": "COMP-0003",
+        "created_at": "2026-08-10T12:06:57.722620",
+        "updated_at": "2026-08-10T12:12:22.209051"
+    },
+    {
+        "student_id": "2320132",
+        "student_name": "Mahamudul Amn",
+        "student_email": "2320132@iub.edu.bd",
+        "title": "Other",
+        "description": "hjbn",
+        "status": "In Progress",
+        "id": "COMP-0004",
+        "created_at": "2026-08-10T12:12:41.217145",
+        "updated_at": "2026-08-10T12:12:58.726053"
+    },
+    {
+        "student_id": "2121212",
+        "student_name": "sohel",
+        "student_email": "2121212@iub.edu.bd",
+        "title": "Staff Behavior",
+        "description": "he did not give me",
+        "status": "Rejected",
+        "id": "COMP-0005",
+        "created_at": "2026-08-12T11:15:32.470396",
+        "updated_at": "2026-08-12T11:19:30.317658"
+    },
+    {
+        "student_id": "2121212",
+        "student_name": "sohel",
+        "student_email": "2121212@iub.edu.bd",
+        "title": "Administrative",
+        "description": "its not good enough",
+        "status": "Resolved",
+        "id": "COMP-0006",
+        "created_at": "2026-08-12T11:16:55.712278",
+        "updated_at": "2026-08-12T11:19:25.502490"
+    },
+    {
+        "student_id": "2320131",
+        "student_name": "Rahat",
+        "student_email": "2320131@iub.edu.bd",
+        "title": "Academic Issue",
+        "description": "rahat",
+        "status": "Pending",
+        "id": "COMP-0007",
+        "created_at": "2026-08-12T14:16:27.572247",
+        "updated_at": "2026-08-12T14:16:27.572269"
+    },
+    {
+        "student_id": "1111111",
+        "student_name": "Amin n",
+        "student_email": "1111111@iub.edu.bd",
+        "title": "Facilities",
+        "description": "1",
+        "status": "Pending",
+        "id": "COMP-0008",
+        "created_at": "2026-08-12T17:01:49.815762",
+        "updated_at": "2026-08-12T17:01:49.815772"
     }
 ]

@@ -1,7 +1,7 @@
-import Navbar from "../../components/Navbar";
-import Sidebar from "../../components/Sidebar";
+import Navbar from "../../components/StudentNavbar";
+import Sidebar from "../../components/StudentSidebar";
 import { useEffect, useState } from "react";
-// import API_URL from "../../config";
+import API_URL from "../../config";
 
 interface RequestData {
   id: string;
@@ -18,8 +18,8 @@ const RequestHistory = () => {
 
   const loadRequests = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/requests");
-      // const response = await fetch(`${API_URL}/requests`);
+      // const response = await fetch("http://127.0.0.1:8000/requests");
+const response = await fetch(`${API_URL}/requests`);
 
       if (!response.ok) {
         throw new Error("Failed to load requests");
@@ -55,18 +55,18 @@ const RequestHistory = () => {
     if (!confirmDelete) return;
 
     try {
+      // const response = await fetch(
+      //   `http://127.0.0.1:8000/requests/${id}`,
+      //   {
+      //     method: "DELETE",
+      //   }
+      // );
       const response = await fetch(
-        `http://127.0.0.1:8000/requests/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
-//       const response = await fetch(
-//   `${API_URL}/requests/${id}`,
-//   {
-//     method: "DELETE",
-//   }
-// );
+  `${API_URL}/requests/${id}`,
+  {
+    method: "DELETE",
+  }
+);
 
       if (!response.ok) {
         throw new Error("Delete failed");

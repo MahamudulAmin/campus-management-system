@@ -1,6 +1,6 @@
-import Navbar from "../../components/Navbar";
-import Sidebar from "../../components/Sidebar";
-import NoticeBoard from "../../components/NoticeBoard";
+import Navbar from "../../components/StudentNavbar";
+import Sidebar from "../../components/StudentSidebar";
+import NoticeBoard from "../../components/StudentNoticeBoard";
 
 const NoticeBoardPage = () => {
   return (

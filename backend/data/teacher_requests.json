@@ -1,0 +1,39 @@
+[
+    {
+        "id": "REQ-CE34640A",
+        "teacher_id": "11111",
+        "teacher_name": "Teacher",
+        "title": "a",
+        "category": "Classroom Maintenance",
+        "description": "a",
+        "priority": "Medium",
+        "status": "Rejected",
+        "submitted_at": "2026-08-12T16:42:26.711026",
+        "admin_remark": "",
+        "updated_at": "2026-08-12T16:47:29.440835"
+    },
+    {
+        "id": "REQ-92D767E1",
+        "teacher_id": "11111",
+        "teacher_name": "Teacher",
+        "title": "dsfshdkjf",
+        "category": "Facilities & Cleaning",
+        "description": "fwerrweesd",
+        "priority": "Medium",
+        "status": "Rejected",
+        "submitted_at": "2026-08-12T16:46:03.620008",
+        "admin_remark": "",
+        "updated_at": "2026-08-12T16:47:54.714870"
+    },
+    {
+        "id": "REQ-8EA38775",
+        "teacher_id": "11111",
+        "teacher_name": "Teacher",
+        "title": "abc",
+        "category": "Classroom Maintenance",
+        "description": "s",
+        "priority": "Medium",
+        "status": "Pending",
+        "submitted_at": "2026-08-12T17:04:42.504465"
+    }
+]
