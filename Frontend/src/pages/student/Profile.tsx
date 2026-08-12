@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar";
-import Sidebar from "../../components/Sidebar";
+import Navbar from "../../components/StudentNavbar";
+import Sidebar from "../../components/StudentSidebar";
 import API_URL from "../../config";
 
 

@@ -16,77 +16,108 @@ const Login = () => {
     const id = username.trim();
     const pass = password.trim();
 
-    // ==========================================
+    // ==============================
     // EMPTY ID CHECK
-    // ==========================================
+    // ==============================
 
     if (id === "") {
       setError("Please enter your ID.");
       return;
     }
 
-    // ==========================================
+    // ==============================
     // ONLY NUMBERS
-    // ==========================================
+    // ==============================
 
     if (!/^\d+$/.test(id)) {
       setError("ID must contain only numbers.");
       return;
     }
 
-    // ==========================================
-    // ADMIN LOGIN
-    // ==========================================
-    // Admin IDs are 4 digits
-    // Example: 1234, 5678
-    // ==========================================
-
-    if (id.length === 4) {
-      localStorage.setItem("role", "admin");
-      localStorage.setItem("userId", id);
-
-      navigate("/admin-dashboard");
-      return;
-    }
-
-    // ==========================================
-    // STUDENT LOGIN
-    // ==========================================
-    // Student IDs must be exactly 7 digits
-    // Example: 2320132
-    // ==========================================
-
-    if (id.length !== 7) {
-      setError(
-        "Student ID must be exactly 7 digits."
-      );
-      return;
-    }
-
-    // ==========================================
-    // PASSWORD CHECK
-    // ==========================================
+    // ==============================
+    // EMPTY PASSWORD
+    // ==============================
 
     if (pass === "") {
       setError("Please enter your password.");
       return;
     }
 
+    // ==============================
+    // ADMIN LOGIN
+    // 4 DIGITS
+    // ==============================
+
+    if (id.length === 4) {
+      localStorage.setItem("role", "admin");
+      localStorage.setItem("userId", id);
+      localStorage.setItem("user", JSON.stringify({
+        id: id,
+        role: "admin"
+      }));
+
+      navigate("/admin-dashboard");
+      return;
+    }
+
+    // ==============================
+    // TEACHER LOGIN
+    // 5 DIGITS
+    // ==============================
+
+    if (id.length === 5) {
+      localStorage.setItem("role", "teacher");
+      localStorage.setItem("userId", id);
+      localStorage.setItem("user", JSON.stringify({
+        id: id,
+        role: "teacher"
+      }));
+
+      navigate("/teacher-dashboard");
+      return;
+    }
+
+    // ==============================
+    // OFFICE STAFF LOGIN
+    // 6 DIGITS
+    // ==============================
+
+    if (id.length === 6) {
+      localStorage.setItem("role", "office_staff");
+      localStorage.setItem("userId", id);
+      localStorage.setItem("user", JSON.stringify({
+        id: id,
+        role: "office_staff"
+      }));
+
+      navigate("/staff-dashboard");
+      return;
+    }
+
+    // ==============================
+    // STUDENT LOGIN
+    // 7 DIGITS
+    // ==============================
+
+    if (id.length !== 7) {
+      setError("Invalid ID. Please enter a valid ID.");
+      return;
+    }
+
+    // ==============================
+    // STUDENT LOGIN API
+    // ==============================
+
     try {
       setLoading(true);
 
-      // ==========================================
-      // SEND LOGIN REQUEST TO FASTAPI
-      // ==========================================
-
-      const response = await fetch("http://127.0.0.1:8000/login/",
+      const response = await fetch(
+        "http://127.0.0.1:8000/login/",
         {
           method: "POST",
-
           headers: {
             "Content-Type": "application/json",
           },
-
           body: JSON.stringify({
             id: id,
             password: pass,
@@ -96,59 +127,61 @@ const Login = () => {
 
       const data = await response.json();
 
-      // ==========================================
+      // ==============================
       // LOGIN FAILED
-      // ==========================================
+      // ==============================
 
       if (!response.ok) {
         setError(
-          data.detail ||
-            "Invalid Student ID or password."
+          data.detail || "Invalid Student ID or password."
         );
-
         return;
       }
 
-      // ==========================================
-      // SUCCESSFUL LOGIN
-      // ==========================================
+      // ==============================
+      // USER DATA
+      // ==============================
 
       const user = data.user;
 
-      // Save complete user information
+      if (!user) {
+        setError(
+          "Login successful, but user information was not returned."
+        );
+        return;
+      }
+
+      // ==============================
+      // SAVE USER
+      // ==============================
+
       localStorage.setItem(
         "user",
         JSON.stringify(user)
       );
 
-      // Save role
       localStorage.setItem(
         "role",
         user.role || "student"
       );
 
-      // Save student ID
       localStorage.setItem(
         "userId",
-        user.id
+        String(user.id || id)
       );
 
-      // ==========================================
-      // GO TO STUDENT DASHBOARD
-      // ==========================================
+      // ==============================
+      // STUDENT DASHBOARD
+      // ==============================
 
       navigate("/student-dashboard");
 
     } catch (err) {
-      console.error(
-        "Login error:",
-        err
-      );
+      console.error("Login error:", err);
 
       setError(
         "Unable to connect to the server. Please make sure the backend is running."
       );
-
     } finally {
       setLoading(false);
     }
@@ -159,9 +192,7 @@ const Login = () => {
 
       <div className="login-card">
 
-        {/* ======================================
-            HEADER
-        ======================================= */}
+        {/* HEADER */}
 
         <div className="login-header">
 
@@ -181,10 +212,7 @@ const Login = () => {
 
         </div>
 
-
-        {/* ======================================
-            USER ID
-        ======================================= */}
+        {/* USER ID */}
 
         <div className="form-group">
 
@@ -196,17 +224,13 @@ const Login = () => {
             type="text"
             value={username}
             onChange={(e) => {
-
-              // Only allow numbers
-              const value =
-                e.target.value.replace(
-                  /\D/g,
-                  ""
-                );
+              const value = e.target.value.replace(
+                /\D/g,
+                ""
+              );
 
               setUsername(value);
               setError("");
-
             }}
             placeholder="Enter your ID"
             maxLength={7}
@@ -214,10 +238,7 @@ const Login = () => {
 
         </div>
 
-
-        {/* ======================================
-            PASSWORD
-        ======================================= */}
+        {/* PASSWORD */}
 
         <div className="form-group">
 
@@ -233,14 +254,16 @@ const Login = () => {
               setError("");
             }}
             placeholder="Enter your password"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleLogin();
+              }
+            }}
           />
 
         </div>
 
-
-        {/* ======================================
-            ERROR
-        ======================================= */}
+        {/* ERROR */}
 
         {error && (
           <p
@@ -254,10 +277,7 @@ const Login = () => {
           </p>
         )}
 
-
-        {/* ======================================
-            LOGIN BUTTON
-        ======================================= */}
+        {/* LOGIN BUTTON */}
 
         <button
           className="login-button"
@@ -269,10 +289,7 @@ const Login = () => {
             : "Login"}
         </button>
 
-
-        {/* ======================================
-            FOOTER
-        ======================================= */}
+        {/* FOOTER */}
 
         <div className="login-footer">
 

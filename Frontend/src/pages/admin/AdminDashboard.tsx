@@ -4,7 +4,7 @@ import "../../styles/AdminDashboard.css";
 
 import AdminNavbar from "../../components/AdminNavbar";
 import AdminSidebar from "../../components/AdminSidebar";
-import SummaryCard from "../../components/SummaryCard";
+import SummaryCard from "../../components/ASSummaryCard";
 
 import API_URL from "../../config";
 

@@ -2,12 +2,12 @@ import React, { useMemo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // import Navbar from "../../components/Navbar";
-import Sidebar from "../../components/Sidebar";
-import SummaryCard from "../../components/SummaryCard";
+import Sidebar from "../../components/StudentSidebar";
+import SummaryCard from "../../components/ASSummaryCard";
 import OfficeCard from "../../components/OfficeCard";
-import RequestTable from "../../components/RequestTable";
-import NoticeBoard from "../../components/NoticeBoard";
-import NotificationPanel from "../../components/NotificationPanel";
+import RequestTable from "../../components/StudentRequestTable";
+import NoticeBoard from "../../components/StudentNoticeBoard";
+import NotificationPanel from "../../components/StudentNotificationPanel";
 
 import API_URL from "../../config";
 

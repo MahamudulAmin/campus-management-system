@@ -1,0 +1,52 @@
+[
+    {
+        "id": "ANN-60d2c37b8380433eb3bbfee41e7c4498",
+        "teacher_id": "11111",
+        "teacher_name": "Teacher",
+        "title": "q",
+        "body": "q",
+        "category": "General",
+        "created_at": "2026-08-12T16:16:25.532214",
+        "status": "Published"
+    },
+    {
+        "id": "ANN-3c94f71fd3424c0ca8f0753e08831557",
+        "teacher_id": "11111",
+        "teacher_name": "Teacher",
+        "title": "xm",
+        "body": "w",
+        "category": "Academic",
+        "created_at": "2026-08-12T16:17:55.639556",
+        "status": "Published"
+    },
+    {
+        "id": "9c34dca5-21e3-44d5-a4be-42f1b5366c58",
+        "teacher_id": "11111",
+        "teacher_name": "Teacher",
+        "title": "te",
+        "body": "f",
+        "category": "Event",
+        "created_at": "2026-08-12T16:21:37.439491",
+        "status": "Published"
+    },
+    {
+        "id": "29a341a7-6329-442f-a37f-a98db511ca87",
+        "teacher_id": "11111",
+        "teacher_name": "Teacher",
+        "title": "q2",
+        "body": "awsds",
+        "category": "Academic",
+        "created_at": "2026-08-12T16:23:30.905490",
+        "status": "Published"
+    },
+    {
+        "id": "fddb283d-4099-482c-a809-d51d262a0489",
+        "teacher_id": "11111",
+        "teacher_name": "Teacher",
+        "title": "as",
+        "body": "s",
+        "category": "Academic",
+        "created_at": "2026-08-12T17:04:30.499264",
+        "status": "Published"
+    }
+]

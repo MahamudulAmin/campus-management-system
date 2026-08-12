@@ -13,7 +13,7 @@
     },
     {
         "id": "1111111",
-        "name": "Amin",
+        "name": "Amin n",
         "email": "1111111@iub.edu.bd",
         "password": "1111111",
         "role": "Student",
@@ -49,7 +49,7 @@
     },
     {
         "id": "2320131",
-        "name": "Student 2320131",
+        "name": "Rahat",
         "email": "2320131@iub.edu.bd",
         "password": "2320131",
         "role": "Student",
@@ -70,5 +70,29 @@
         "semester": "winter",
         "gpa": "",
         "address": "cumilla"
+    },
+    {
+        "id": "2323132",
+        "name": "Student 2323132",
+        "email": "2323132@iub.edu.bd",
+        "password": "2323132",
+        "role": "Student",
+        "phone": "",
+        "department": "",
+        "semester": "",
+        "gpa": "",
+        "address": ""
+    },
+    {
+        "id": "2121212",
+        "name": "sohel",
+        "email": "2121212@iub.edu.bd",
+        "password": "2121212",
+        "role": "Student",
+        "phone": "",
+        "department": "BBA",
+        "semester": "",
+        "gpa": "",
+        "address": ""
     }
 ]
